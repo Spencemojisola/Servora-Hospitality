@@ -1,16 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Servora Hospitality Services</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <title>Servora Hospitaity Services</title>
+</head>
+
+<body>
+
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Servora Hospitality Services</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
 
         :root {
             --primary: #c9a96e;
@@ -304,11 +314,11 @@
             transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
         }
 
-        .service-card:hover {
-            border-bottom-color: var(--primary);
-            transform: translateY(-6px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
-        }
+            .service-card:hover {
+                border-bottom-color: var(--primary);
+                transform: translateY(-6px);
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            }
 
         .service-icon {
             font-size: 2.8rem;
@@ -383,18 +393,19 @@
             font-size: 2rem;
         }
 
-        .gallery-placeholder {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #2d2d2d, #444);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #888;
-            font-size: 0.85rem;
-            gap: 0.5rem;
-        }
+            /* Gallery placeholder when no image */
+            .gallery-placeholder {
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(135deg, #2d2d2d, #444);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                color: #888;
+                font-size: 0.85rem;
+                gap: 0.5rem;
+            }
 
         .gallery-placeholder span {
             font-size: 2rem;
@@ -422,20 +433,20 @@
             transition: box-shadow 0.3s;
         }
 
-        .team-card:hover {
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-        }
+            .team-card:hover {
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            }
 
-        .team-photo {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin: 0 auto 1.2rem;
-            border: 3px solid var(--primary);
-            display: block;
-            background: #ddd;
-        }
+            .team-photo {
+                width: 200px;
+                height: 200px;
+                border-radius: 50%;
+                object-fit: cover;
+                margin: 0 auto 1.2rem;
+                border: 3px solid var(--primary);
+                display: block;
+                background: #ddd;
+            }
 
         .team-photo-placeholder {
             width: 120px;
@@ -471,8 +482,8 @@
             line-height: 1.6;
         }
 
-        /* ══════════════════════════
-           BOOKING
+            /* ══════════════════════════
+           BOOKING / CONSULTATION
         ══════════════════════════ */
         #booking {
             background: var(--dark);
@@ -487,14 +498,14 @@
             color: #aaa;
         }
 
-        .booking-wrapper {
-            max-width: 620px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(201, 169, 110, 0.3);
-            border-radius: 12px;
-            padding: 3rem;
-        }
+            .booking-wrapper {
+                max-width: 620px;
+                margin: 0 auto;
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(201, 169, 110, 0.3);
+                border-radius: 12px;
+                padding: 3rem;
+            }
 
         .form-row {
             display: grid;
@@ -515,20 +526,20 @@
             text-transform: uppercase;
         }
 
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            background: rgba(255, 255, 255, 0.07);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 6px;
-            color: var(--white);
-            font-size: 1rem;
-            font-family: inherit;
-            transition: border-color 0.3s;
-            box-sizing: border-box;
-        }
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                width: 100%;
+                padding: 0.75rem 1rem;
+                background: rgba(255, 255, 255, 0.07);
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                border-radius: 6px;
+                color: var(--white);
+                font-size: 1rem;
+                font-family: inherit;
+                transition: border-color 0.3s;
+                box-sizing: border-box;
+            }
 
         .form-group input:focus,
         .form-group select:focus,
@@ -617,15 +628,15 @@
         /* ══════════════════════════
            LIGHTBOX
         ══════════════════════════ */
-        .lightbox {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.92);
-            z-index: 9999;
-            align-items: center;
-            justify-content: center;
-        }
+            .lightbox {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.92);
+                z-index: 9999;
+                align-items: center;
+                justify-content: center;
+            }
 
         .lightbox.open {
             display: flex;
@@ -653,18 +664,18 @@
         /* ══════════════════════════
            RESPONSIVE
         ══════════════════════════ */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: rgba(26, 26, 26, 0.98);
-                padding: 1.5rem 2rem;
-                gap: 1.2rem;
-            }
+            @media (max-width: 768px) {
+                .nav-links {
+                    display: none;
+                    flex-direction: column;
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    width: 100%;
+                    background: rgba(26, 26, 26, 0.98);
+                    padding: 1.5rem 2rem;
+                    gap: 1.2rem;
+                }
 
             .nav-links.open {
                 display: flex;
@@ -682,14 +693,14 @@
                 padding: 2rem 1.2rem;
             }
 
-            .about-strip {
-                gap: 2rem;
+                .about-strip {
+                    gap: 2rem;
+                }
             }
-        }
-    </style>
-</head>
+        </style>
+    </head>
 
-<body>
+    <body>
 
     <!-- ══════════════════════════
          NAVBAR
@@ -710,147 +721,150 @@
     <!-- ══════════════════════════
          HERO
     ══════════════════════════ -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <p class="hero-tagline">Premium Hospitality Staffing</p>
-            <h1>Elevating Every <span>Event</span> Experience</h1>
-            <p>We provide professionally trained hospitality staff for events,
-                corporate functions, and private occasions across Nigeria.</p>
-            <div class="hero-btns">
-                <a href="#booking" class="btn-primary">Book a Consultation</a>
-                <a href="#services" class="btn-outline">Our Services</a>
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <p class="hero-tagline">Premium Hospitality Staffing</p>
+                <h1>Elevating Every <span>Event</span> Experience</h1>
+                <p>We provide professionally trained hospitality staff for events,
+                    corporate functions, and private occasions across Nigeria.</p>
+                <div class="hero-btns">
+                    <a href="#booking" class="btn-primary">Book a Consultation</a>
+                    <a href="#services" class="btn-outline">Our Services</a>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
     <!-- ══════════════════════════
          STATS STRIP
     ══════════════════════════ -->
-    <div class="about-strip">
-        <div class="stat-item">
-            <h3>1+</h3>
-            <p>Events Covered</p>
+        <div class="about-strip">
+            <div class="stat-item">
+                <h3>1+</h3>
+                <p>Events Covered</p>
+            </div>
+            <div class="stat-item">
+                <h3>50+</h3>
+                <p>Trained Staff</p>
+            </div>
+            <div class="stat-item">
+                <h3>1+</h3>
+                <p>Years Experience</p>
+            </div>
+            <div class="stat-item">
+                <h3>100%</h3>
+                <p>Client Satisfaction</p>
+            </div>
         </div>
-        <div class="stat-item">
-            <h3>50+</h3>
-            <p>Trained Staff</p>
-        </div>
-        <div class="stat-item">
-            <h3>1+</h3>
-            <p>Years Experience</p>
-        </div>
-        <div class="stat-item">
-            <h3>100%</h3>
-            <p>Client Satisfaction</p>
-        </div>
-    </div>
 
     <!-- ══════════════════════════
          SERVICES
     ══════════════════════════ -->
-    <section id="services">
-        <p class="section-label">What We Offer</p>
-        <h2 class="section-title">Our <span>Services</span></h2>
-        <div class="divider"></div>
-        <p class="section-subtitle">
-            From intimate gatherings to large corporate events,
-            we deliver excellence in every role.
-        </p>
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-icon">🍽️</div>
-                <h3>Event Serving</h3>
-                <p>Professional food and beverage servers trained to deliver seamless dining experiences at
-                    weddings, parties, and corporate events.</p>
+        <section id="services">
+            <p class="section-label">What We Offer</p>
+            <h2 class="section-title">Our <span>Services</span></h2>
+            <div class="divider"></div>
+            <p class="section-subtitle">
+                From intimate gatherings to large corporate events,
+                we deliver excellence in every role.
+            </p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🍽️</div>
+                    <h3>Event Serving</h3>
+                    <p>Professional food and beverage servers trained to deliver seamless dining experiences at
+                        weddings, parties, and corporate events.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🎪</div>
+                    <h3>Event Ushering</h3>
+                    <p>Courteous and well-presented ushers who guide guests, manage seating, and ensure smooth event
+                        flow from start to finish.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🏨</div>
+                    <h3>Hotel & Venue Staffing</h3>
+                    <p>Trained hospitality personnel for hotels, resorts, and event venues requiring front-of-house and
+                        back-of-house support.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🤝</div>
+                    <h3>Corporate Event Support</h3>
+                    <p>Professional staff for conferences, product launches, and corporate dinners — representing your
+                        brand with excellence.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">👑</div>
+                    <h3>Private & VIP Events</h3>
+                    <p>Discreet, highly trained personnel for exclusive private functions, ensuring premium service with
+                        attention to detail.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📋</div>
+                    <h3>Event Coordination Support</h3>
+                    <p>Administrative and logistical support staff to assist event planners and ensure every detail is
+                        executed perfectly.</p>
+                </div>
             </div>
-            <div class="service-card">
-                <div class="service-icon">🎪</div>
-                <h3>Event Ushering</h3>
-                <p>Courteous and well-presented ushers who guide guests, manage seating, and ensure smooth event
-                    flow from start to finish.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🏨</div>
-                <h3>Hotel & Venue Staffing</h3>
-                <p>Trained hospitality personnel for hotels, resorts, and event venues requiring front-of-house and
-                    back-of-house support.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🤝</div>
-                <h3>Corporate Event Support</h3>
-                <p>Professional staff for conferences, product launches, and corporate dinners — representing your
-                    brand with excellence.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">👑</div>
-                <h3>Private & VIP Events</h3>
-                <p>Discreet, highly trained personnel for exclusive private functions, ensuring premium service with
-                    attention to detail.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">📋</div>
-                <h3>Event Coordination Support</h3>
-                <p>Administrative and logistical support staff to assist event planners and ensure every detail is
-                    executed perfectly.</p>
-            </div>
-        </div>
-    </section>
+        </section>
 
     <!-- ══════════════════════════
          GALLERY
     ══════════════════════════ -->
-    <section id="gallery">
-        <p class="section-label">Our Work</p>
-        <h2 class="section-title">Event <span>Gallery</span></h2>
-        <div class="divider"></div>
-        <p class="section-subtitle">
-            A glimpse of our team in action across various events.
-        </p>
-        <div class="gallery-grid">
-            <div class="gallery-item" onclick="openLightbox(this)">
-                <div class="gallery-placeholder">
-                    <span>📸</span>
-                    <p>Event Photo 1</p>
+        <section id="gallery">
+            <p class="section-label">Our Work</p>
+            <h2 class="section-title">Event <span>Gallery</span></h2>
+            <div class="divider"></div>
+            <p class="section-subtitle">
+                A glimpse of our team in action across various events.
+            </p>
+            <div class="gallery-grid">
+                <!-- Replace src with your actual images -->
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <div class="gallery-placeholder">
+                        <span>📸</span>
+            
+                        <p>Event Photo 1</p>
+                    </div>
+                    <div class="gallery-overlay"><span>🔍</span></div>
                 </div>
-                <div class="gallery-overlay"><span>🔍</span></div>
-            </div>
-            <div class="gallery-item" onclick="openLightbox(this)">
-                <div class="gallery-placeholder">
-                    <span>📸</span>
-                    <p>Event Photo 2</p>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <div class="gallery-placeholder">
+                        <span>📸</span>
+                        
+                        <p>Event Photo 2</p>
+                    </div>
+                    <div class="gallery-overlay"><span>🔍</span></div>
                 </div>
-                <div class="gallery-overlay"><span>🔍</span></div>
-            </div>
-            <div class="gallery-item" onclick="openLightbox(this)">
-                <div class="gallery-placeholder">
-                    <span>📸</span>
-                    <p>Event Photo 3</p>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <div class="gallery-placeholder">
+                        <span>📸</span>
+                        <p>Event Photo 3</p>
+                    </div>
+                    <div class="gallery-overlay"><span>🔍</span></div>
                 </div>
-                <div class="gallery-overlay"><span>🔍</span></div>
-            </div>
-            <div class="gallery-item" onclick="openLightbox(this)">
-                <div class="gallery-placeholder">
-                    <span>📸</span>
-                    <p>Event Photo 4</p>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <div class="gallery-placeholder">
+                        <span>📸</span>
+                        <p>Event Photo 4</p>
+                    </div>
+                    <div class="gallery-overlay"><span>🔍</span></div>
                 </div>
-                <div class="gallery-overlay"><span>🔍</span></div>
-            </div>
-            <div class="gallery-item" onclick="openLightbox(this)">
-                <div class="gallery-placeholder">
-                    <span>📸</span>
-                    <p>Event Photo 5</p>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <div class="gallery-placeholder">
+                        <span>📸</span>
+                        <p>Event Photo 5</p>
+                    </div>
+                    <div class="gallery-overlay"><span>🔍</span></div>
                 </div>
-                <div class="gallery-overlay"><span>🔍</span></div>
-            </div>
-            <div class="gallery-item" onclick="openLightbox(this)">
-                <div class="gallery-placeholder">
-                    <span>📸</span>
-                    <p>Event Photo 6</p>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <div class="gallery-placeholder">
+                        <span>📸</span>
+                        <p>Event Photo 6</p>
+                    </div>
+                    <div class="gallery-overlay"><span>🔍</span></div>
                 </div>
-                <div class="gallery-overlay"><span>🔍</span></div>
             </div>
-        </div>
-    </section>
+        </section>
 
     <!-- Lightbox -->
     <div class="lightbox" id="lightbox">
@@ -866,7 +880,7 @@
         <h2 class="section-title">Meet the <span>Team</span></h2>
         <div class="divider"></div>
         <p class="section-subtitle">
-            Our experienced management team drives our commitment
+            Our experienced management team drives our commitment 
             to excellence in every engagement.
         </p>
         <div class="team-grid">
@@ -874,15 +888,17 @@
                 <img src="./images/IMG_2577.jpg" alt="" class="team-photo">
                 <h3>Spence Oluwakuade Olawale</h3>
                 <p class="role">Co-Founder & CEO</p>
-                <p>With over 6 years in Customer Relationship Management, and 3 years in Hospitality, Spence leads Servora's vision of redefining event and customer relationship staffing in Nigeria.</p>
+                <p>With over 10 years in hospitality management, Spence leads Servora's vision of redefining event
+                    staffing in Nigeria.</p>
             </div>
             <div class="team-card">
                <img src="./images/IMG_2578.jpg" alt="" class="team-photo">
                 <h3>Tomilola Johnson</h3>
                 <p class="role">Co-Founder & CEO</p>
-                <p>Tomi has over 6 years in Customer Relationship Management, ensuring seamless operations and client satisfaction..</p>
+                <p>Tomilola oversees all event deployments, ensuring every staff placement meets Servora's high
+                    standards of professionalism.</p>
             </div>
-           
+            
         </div>
     </section>
 
@@ -967,19 +983,18 @@
     <!-- ══════════════════════════
          FOOTER
     ══════════════════════════ -->
-    <footer>
-        <div class="footer-logo">Serv<span>ora</span></div>
-        <div class="footer-links">
-            <a href="#home">Home</a>
-            <a href="#services">Services</a>
-            <a href="#gallery">Gallery</a>
-            <a href="#team">Team</a>
-            <a href="#booking">Book Now</a>
-        </div>
-        <p>📍 Ibadan and Lagos, Nigeria &nbsp;|&nbsp; 📞 +234 903 024 4084, +234 706 594 8519 &nbsp;|&nbsp; ✉️
-            servorahospitalityservices@gmail.com</p>
-        <p style="margin-top:1rem;">© 2026 Servora Hospitality Services. All rights reserved.</p>
-    </footer>
+        <footer>
+            <div class="footer-logo">Serv<span>ora</span></div>
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#services">Services</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#team">Team</a>
+                <a href="#booking">Book Now</a>
+            </div>
+            <p>📍 Ibadan and Lagos, Nigeria &nbsp;|&nbsp; 📞 +234 903 024 4084, +234 706 594 8519 &nbsp;|&nbsp; ✉️ servorahospitalityservices@gmail.com</p>
+            <p style="margin-top:1rem;">© 2026 Servora Hospitality Services. All rights reserved.</p>
+        </footer>
 
     <script>
         // ── Navbar Toggle ──
@@ -987,11 +1002,12 @@
             document.getElementById('navLinks').classList.toggle('open');
         }
 
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                document.getElementById('navLinks').classList.remove('open');
+            // Close nav when a link is clicked
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    document.getElementById('navLinks').classList.remove('open');
+                });
             });
-        });
 
         // ── Lightbox ──
         function openLightbox(item) {
@@ -1006,12 +1022,14 @@
             document.getElementById('lightbox').classList.remove('open');
         }
 
-        document.getElementById('lightbox').addEventListener('click', function (e) {
-            if (e.target === this) closeLightbox();
-        });
+            // Close lightbox on background click
+            document.getElementById('lightbox').addEventListener('click', function (e) {
+                if (e.target === this) closeLightbox();
+            });
 
-        // ── Booking Form ──
-        const BOOKING_URL = "https://script.google.com/macros/s/AKfycbycBSP1gKYSaahXZbYBr2FH0E5iQBypAUuWkDjgnhdZkP407IcHn4esZ-qfEH7FqObrlg/exec";
+            // ── Booking Form ──
+            // Replace this URL with your Google Apps Script Web App URL
+            const BOOKING_URL = "https://script.google.com/macros/s/AKfycbycBSP1gKYSaahXZbYBr2FH0E5iQBypAUuWkDjgnhdZkP407IcHn4esZ-qfEH7FqObrlg/exec";
 
         function submitBooking(e) {
             e.preventDefault();
@@ -1048,6 +1066,9 @@
         });
     </script>
 
-</body>
+    </body>
 
+    </html>
+
+</body>
 </html>
