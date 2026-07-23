@@ -1,0 +1,2015 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servora Workforce Solutions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #c9a96e;
+            --dark: #1a1a1a;
+            --light: #f9f7f4;
+            --gray: #666;
+            --white: #ffffff;
+            --accent2: #7a8f7a;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* ══════════════════════════
+           NAVBAR
+        ══════════════════════════ */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.97);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+
+        .logo span {
+            color: var(--white);
+        }
+
+        .logo .logo-sub {
+            font-size: 0.6rem;
+            color: #999;
+            letter-spacing: 3px;
+            font-weight: 400;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.6rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.92rem;
+            letter-spacing: 0.5px;
+            transition: color 0.3s;
+            white-space: nowrap;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-divider {
+            width: 1px;
+            height: 18px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-cta {
+            background: var(--primary);
+            color: var(--dark) !important;
+            padding: 0.5rem 1.2rem;
+            border-radius: 4px;
+            font-weight: 600 !important;
+            transition: background 0.3s !important;
+        }
+
+        .nav-cta:hover {
+            background: #b8935a !important;
+            color: var(--white) !important;
+        }
+
+        .nav-cta-outline {
+            border: 1px solid var(--primary);
+            color: var(--primary) !important;
+            padding: 0.5rem 1.2rem;
+            border-radius: 4px;
+            font-weight: 600 !important;
+            transition: all 0.3s !important;
+        }
+
+        .nav-cta-outline:hover {
+            background: var(--primary);
+            color: var(--dark) !important;
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: var(--white);
+            transition: 0.3s;
+        }
+
+        /* ══════════════════════════
+           HERO
+        ══════════════════════════ */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(201, 169, 110, 0.15) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 780px;
+        }
+
+        .hero-tagline {
+            font-size: 0.85rem;
+            letter-spacing: 4px;
+            color: var(--primary);
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            color: var(--white);
+            font-weight: 300;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #ccc;
+            max-width: 580px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--dark);
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s, transform 0.2s;
+            letter-spacing: 1px;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background: #b8935a;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            padding: 0.8rem 2rem;
+            border: 1px solid var(--white);
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            letter-spacing: 1px;
+        }
+
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--dark);
+            transform: translateY(-2px);
+        }
+
+        /* ══════════════════════════
+           PATH SPLIT BANNER
+        ══════════════════════════ */
+        .path-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .path-card {
+            padding: 3rem 2rem;
+            text-align: center;
+            text-decoration: none;
+            transition: filter 0.3s;
+            position: relative;
+        }
+
+        .path-card:hover {
+            filter: brightness(1.08);
+        }
+
+        .path-card.employers {
+            background: var(--dark);
+            color: var(--white);
+        }
+
+        .path-card.jobseekers {
+            background: var(--primary);
+            color: var(--dark);
+        }
+
+        .path-card .path-eyebrow {
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0.75;
+            margin-bottom: 0.6rem;
+        }
+
+        .path-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .path-card p {
+            font-size: 0.92rem;
+            max-width: 340px;
+            margin: 0 auto 1.2rem;
+            opacity: 0.85;
+        }
+
+        .path-card .path-arrow {
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
+            .path-split {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ══════════════════════════
+           SECTIONS GENERAL
+        ══════════════════════════ */
+        section {
+            padding: 6rem 2rem;
+        }
+
+        .section-label {
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            color: var(--primary);
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .section-title span {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray);
+            max-width: 550px;
+            margin: 0 auto 4rem;
+            font-size: 1rem;
+        }
+
+        .divider {
+            width: 50px;
+            height: 2px;
+            background: var(--primary);
+            margin: 1rem auto 2rem;
+        }
+
+        /* ══════════════════════════
+           ABOUT STRIP
+        ══════════════════════════ */
+        .about-strip {
+            background: var(--dark);
+            padding: 4rem 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .stat-item p {
+            color: #aaa;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* ══════════════════════════
+           SERVICES
+        ══════════════════════════ */
+        #services {
+            background: var(--white);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: var(--light);
+            border-radius: 8px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            border-bottom: 3px solid transparent;
+            transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+
+        .service-card:hover {
+            border-bottom-color: var(--primary);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .service-icon {
+            font-size: 2.8rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--dark);
+        }
+
+        .service-card p {
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* ══════════════════════════
+           CORPORATE STAFFING
+        ══════════════════════════ */
+        #corporate {
+            background: var(--light);
+        }
+
+        .corp-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .corp-copy p {
+            color: var(--gray);
+            font-size: 1rem;
+            line-height: 1.85;
+            margin-bottom: 1.5rem;
+        }
+
+        .corp-copy .btn-primary {
+            margin-top: 0.5rem;
+        }
+
+        .corp-roles-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .corp-role {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 1.6rem 1.3rem;
+            border-left: 3px solid var(--primary);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+        }
+
+        .corp-role h4 {
+            font-size: 0.98rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: var(--dark);
+        }
+
+        .corp-role p {
+            font-size: 0.85rem;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .corp-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ══════════════════════════
+           TRAINING
+        ══════════════════════════ */
+        #training {
+            background: var(--white);
+        }
+
+        .training-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto 3rem;
+        }
+
+        .training-card {
+            background: var(--light);
+            border-radius: 8px;
+            padding: 2.2rem 1.8rem;
+            border-top: 3px solid var(--accent2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .training-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .training-card .training-icon {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .training-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+            color: var(--dark);
+        }
+
+        .training-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            line-height: 1.65;
+        }
+
+        .training-pipeline {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        .pipeline-step {
+            background: var(--dark);
+            color: var(--white);
+            padding: 0.9rem 1.4rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        .pipeline-arrow {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 600px) {
+            .training-pipeline {
+                flex-direction: column;
+            }
+
+            .pipeline-arrow {
+                transform: rotate(90deg);
+            }
+        }
+
+        /* ══════════════════════════
+           CV REVIEW
+        ══════════════════════════ */
+        #cv-review {
+            background: var(--dark);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #cv-review::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(201, 169, 110, 0.1) 0%, transparent 70%);
+            top: 0;
+            left: -150px;
+            pointer-events: none;
+        }
+
+        #cv-review .section-title {
+            color: var(--white);
+        }
+
+        #cv-review .section-subtitle {
+            color: #aaa;
+        }
+
+        .cv-wrapper {
+            max-width: 950px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cv-step {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(201, 169, 110, 0.25);
+            border-radius: 8px;
+            padding: 1.8rem;
+        }
+
+        .cv-step .cv-num {
+            color: var(--primary);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+        }
+
+        .cv-step h4 {
+            font-size: 1.05rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .cv-step p {
+            font-size: 0.88rem;
+            color: #bbb;
+            line-height: 1.6;
+        }
+
+        .cv-cta {
+            grid-column: 1 / -1;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 700px) {
+            .cv-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ══════════════════════════
+           JOB BOARD
+        ══════════════════════════ */
+        #jobs {
+            background: var(--light);
+        }
+
+        .jobs-list {
+            max-width: 900px;
+            margin: 0 auto 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .job-row {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 1.4rem 1.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+            border-left: 3px solid var(--primary);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .job-row:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.1);
+        }
+
+        .job-info h4 {
+            font-size: 1.05rem;
+            color: var(--dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .job-meta {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .job-tag {
+            background: var(--light);
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            letter-spacing: 0.3px;
+        }
+
+        .job-row .btn-outline {
+            color: var(--dark);
+            border-color: var(--dark);
+            padding: 0.55rem 1.3rem;
+            font-size: 0.88rem;
+        }
+
+        .job-row .btn-outline:hover {
+            background: var(--dark);
+            color: var(--white);
+        }
+
+        .jobs-empty-note {
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.9rem;
+            max-width: 500px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .jobs-cta-center {
+            text-align: center;
+        }
+
+        /* ══════════════════════════
+           GALLERY
+        ══════════════════════════ */
+        #gallery {
+            background: var(--white);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            aspect-ratio: 4/3;
+            background: #ddd;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(201, 169, 110, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay span {
+            color: var(--white);
+            font-size: 2rem;
+        }
+
+        .gallery-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #2d2d2d, #444);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 0.85rem;
+            gap: 0.5rem;
+        }
+
+        .gallery-placeholder span {
+            font-size: 2rem;
+        }
+
+        /* ══════════════════════════
+           TEAM
+        ══════════════════════════ */
+        #team {
+            background: var(--light);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .team-card {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            border-radius: 8px;
+            transition: box-shadow 0.3s;
+        }
+
+        .team-card:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .team-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1.2rem;
+            border: 3px solid var(--primary);
+            display: block;
+            background: #ddd;
+        }
+
+        .team-photo-placeholder {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2d2d2d, #555);
+            margin: 0 auto 1.2rem;
+            border: 3px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .team-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: var(--dark);
+        }
+
+        .team-card .role {
+            color: var(--primary);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 0.8rem;
+        }
+
+        .team-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* ══════════════════════════
+           JOIN THE TEAM
+        ══════════════════════════ */
+        #join {
+            background: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #join::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(201, 169, 110, 0.08) 0%, transparent 70%);
+            top: 50%;
+            right: -100px;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+        .join-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .join-left h2 {
+            font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+            font-weight: 300;
+            color: var(--dark);
+            margin-bottom: 1.2rem;
+            line-height: 1.3;
+        }
+
+        .join-left h2 span {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .join-left p {
+            color: var(--gray);
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .join-perks {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .join-perks li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            margin-bottom: 0.9rem;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+
+        .join-perks li .perk-icon {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-top: 0.1rem;
+            flex-shrink: 0;
+        }
+
+        .join-roles {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .role-card {
+            background: var(--light);
+            border-radius: 8px;
+            padding: 1.5rem 1.2rem;
+            text-align: center;
+            border-top: 3px solid var(--primary);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .role-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
+        }
+
+        .role-card .role-icon {
+            font-size: 2rem;
+            margin-bottom: 0.7rem;
+            display: block;
+        }
+
+        .role-card h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.4rem;
+        }
+
+        .role-card p {
+            font-size: 0.82rem;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        .join-cta-box {
+            background: var(--dark);
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            margin-top: 1.5rem;
+            grid-column: 1 / -1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .join-cta-box .cta-text h3 {
+            font-size: 1.3rem;
+            color: var(--white);
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+
+        .join-cta-box .cta-text p {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .btn-join {
+            background: var(--primary);
+            color: var(--dark);
+            padding: 0.9rem 2.2rem;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: background 0.3s, transform 0.2s;
+            white-space: nowrap;
+            display: inline-block;
+        }
+
+        .btn-join:hover {
+            background: #b8935a;
+            transform: translateY(-2px);
+            color: var(--white);
+        }
+
+        /* ══════════════════════════
+           BOOKING / CONSULTATION
+        ══════════════════════════ */
+        #booking {
+            background: var(--dark);
+            color: var(--white);
+        }
+
+        #booking .section-title {
+            color: var(--white);
+        }
+
+        #booking .section-subtitle {
+            color: #aaa;
+        }
+
+        .booking-wrapper {
+            max-width: 620px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(201, 169, 110, 0.3);
+            border-radius: 12px;
+            padding: 3rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.3rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            color: #bbb;
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
+            color: var(--white);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-group select option {
+            background: var(--dark);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        .booking-wrapper .btn-primary {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .booking-success {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .booking-success .check {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        /* ══════════════════════════
+           FOOTER
+        ══════════════════════════ */
+        footer {
+            background: #111;
+            color: #888;
+            text-align: center;
+            padding: 3rem 2rem 2rem;
+        }
+
+        footer .footer-logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+        }
+
+        footer .footer-logo span {
+            color: var(--white);
+        }
+
+        footer .footer-tagline {
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            color: #666;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        footer p {
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        .footer-columns {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .footer-col h5 {
+            color: #aaa;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 0.9rem;
+        }
+
+        .footer-col a {
+            display: block;
+            color: #888;
+            text-decoration: none;
+            font-size: 0.88rem;
+            margin-bottom: 0.6rem;
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: var(--primary);
+        }
+
+        footer .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        footer .footer-links a {
+            color: #888;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+
+        footer .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        /* ══════════════════════════
+           LIGHTBOX
+        ══════════════════════════ */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox.open {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: 6px;
+            object-fit: contain;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+            color: var(--white);
+            font-size: 2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            line-height: 1;
+        }
+
+        /* ══════════════════════════
+           RESPONSIVE
+        ══════════════════════════ */
+        @media (max-width: 900px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                align-items: flex-start;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(26, 26, 26, 0.98);
+                padding: 1.5rem 2rem;
+                gap: 1.2rem;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-divider {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .booking-wrapper {
+                padding: 2rem 1.2rem;
+            }
+
+            .about-strip {
+                gap: 2rem;
+            }
+
+            /* Join section responsive */
+            .join-wrapper {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .join-roles {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .join-cta-box {
+                flex-direction: column;
+                text-align: center;
+                grid-column: 1;
+            }
+
+            .corp-roles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-columns {
+                gap: 2rem;
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .join-roles {
+                grid-template-columns: 1fr;
+            }
+
+            .job-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ══════════════════════════
+         NAVBAR
+    ══════════════════════════ -->
+    <nav>
+        <div class="logo">Serv<span>ora</span><span class="logo-sub">Workforce Solutions</span></div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#services">Event Staffing</a></li>
+            <li><a href="#corporate">Corporate Staffing</a></li>
+            <li><a href="#training">Training</a></li>
+            <li><a href="#cv-review">CV Review</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#team">Our Team</a></li>
+            <li class="nav-divider"></li>
+            <li><a href="#join" class="nav-cta-outline">Talent Pool</a></li>
+            <li><a href="#booking" class="nav-cta">Book Us</a></li>
+        </ul>
+        <div class="hamburger" onclick="toggleNav()">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <!-- ══════════════════════════
+         HERO
+    ══════════════════════════ -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <p class="hero-tagline">Staffing • Training • Careers</p>
+            <h1>Building Careers. <span>Deploying</span> Talent.</h1>
+            <p>Servora trains and deploys hospitality and corporate talent for events and organizations across
+                Nigeria — and helps individuals build the skills, CVs, and connections to get hired.</p>
+            <div class="hero-btns">
+                <a href="#booking" class="btn-primary">Hire Trained Talent</a>
+                <a href="#join" class="btn-outline">Find Work With Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════
+         PATH SPLIT
+    ══════════════════════════ -->
+    <div class="path-split">
+        <a href="#booking" class="path-card employers">
+            <p class="path-eyebrow">For Organizations</p>
+            <h3>I need to hire staff</h3>
+            <p>Event teams, corporate placements, or trained personnel on demand.</p>
+            <span class="path-arrow">Book a Consultation →</span>
+        </a>
+        <a href="#booking" class="path-card jobseekers">
+            <p class="path-eyebrow">For Job Seekers</p>
+            <h3>I want a job or training</h3>
+            <p>Skills training, CV reviews, and access to real openings.</p>
+            <span class="path-arrow">Explore Training →</span>
+        </a>
+    </div>
+
+    <!-- ══════════════════════════
+         STATS STRIP
+    ══════════════════════════ -->
+    <div class="about-strip">
+        <div class="stat-item">
+            <h3>11+</h3>
+            <p>Events Covered</p>
+        </div>
+        <div class="stat-item">
+            <h3>50+</h3>
+            <p>Trained Staff</p>
+        </div>
+        <div class="stat-item">
+            <h3>2+</h3>
+            <p>Years Experience</p>
+        </div>
+        <div class="stat-item">
+            <h3>100%</h3>
+            <p>Client Satisfaction</p>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════
+         SERVICES (EVENT STAFFING)
+    ══════════════════════════ -->
+    <section id="services">
+        <p class="section-label">For Organizations — Events</p>
+        <h2 class="section-title">Event <span>Staffing</span></h2>
+        <div class="divider"></div>
+        <p class="section-subtitle">
+            From intimate gatherings to large corporate events,
+            we deliver excellence in every role.
+        </p>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🍽️</div>
+                <h3>Event Serving</h3>
+                <p>Professional food and beverage servers trained to deliver seamless dining experiences at
+                    weddings, parties, and corporate events.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🎪</div>
+                <h3>Event Ushering</h3>
+                <p>Courteous and well-presented ushers who guide guests, manage seating, and ensure smooth event
+                    flow from start to finish.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🏨</div>
+                <h3>Hotel & Venue Staffing</h3>
+                <p>Trained hospitality personnel for hotels, resorts, and event venues requiring front-of-house and
+                    back-of-house support.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🤝</div>
+                <h3>Corporate Event Support</h3>
+                <p>Professional staff for conferences, product launches, and corporate dinners — representing your
+                    brand with excellence.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">👑</div>
+                <h3>Private & VIP Events</h3>
+                <p>Discreet, highly trained personnel for exclusive private functions, ensuring premium service with
+                    attention to detail.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📋</div>
+                <h3>Event Coordination Support</h3>
+                <p>Administrative and logistical support staff to assist event planners and ensure every detail is
+                    executed perfectly.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════
+         CORPORATE STAFFING
+    ══════════════════════════ -->
+    <section id="corporate">
+        <p class="section-label">For Organizations — Ongoing Roles</p>
+        <h2 class="section-title">Corporate <span>Staffing</span></h2>
+        <div class="divider"></div>
+        <p class="section-subtitle">
+            Beyond events, we place trained talent into recurring and permanent roles inside your organization.
+        </p>
+        <div class="corp-wrapper">
+            <div class="corp-copy">
+                <p>
+                    Every candidate we place has been through Servora's training pipeline — so you're not
+                    just hiring a CV, you're hiring someone we've already vetted, trained, and stand behind.
+                    Whether you need short-term cover or a permanent hire, we match you with people ready to
+                    represent your brand well.
+                </p>
+                <p>
+                    From front-desk and reception to administrative and facility support, our corporate
+                    staffing service is built for organizations that want reliability without the recruitment
+                    overhead.
+                </p>
+                <a href="#booking" class="btn-primary">Request Corporate Staff</a>
+            </div>
+            <div class="corp-roles-grid">
+                <div class="corp-role">
+                    <h4>Front Desk & Reception</h4>
+                    <p>Professional first impressions for your office or facility.</p>
+                </div>
+                <div class="corp-role">
+                    <h4>Administrative Support</h4>
+                    <p>Office assistants trained in workplace professionalism.</p>
+                </div>
+                <div class="corp-role">
+                    <h4>Facility & Front-of-House</h4>
+                    <p>Ongoing on-site staffing for offices, banks, and retail spaces.</p>
+                </div>
+                <div class="corp-role">
+                    <h4>Customer Service Staff</h4>
+                    <p>Client-facing personnel trained in service excellence.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════
+         TRAINING
+    ══════════════════════════ -->
+    <section id="training">
+        <p class="section-label">For Job Seekers</p>
+        <h2 class="section-title">Employability <span>Training</span></h2>
+        <div class="divider"></div>
+        <p class="section-subtitle">
+            The same training that prepares our staff for events and corporate roles is open to anyone
+            looking to build real, job-ready skills.
+        </p>
+        <div class="training-grid">
+            <div class="training-card">
+                <div class="training-icon">🎓</div>
+                <h3>Hospitality & Customer Service</h3>
+                <p>Practical training in service standards, guest handling, and professionalism used across
+                    our event and corporate placements.</p>
+            </div>
+            <div class="training-card">
+                <div class="training-icon">🗣️</div>
+                <h3>Interview Preparation</h3>
+                <p>Mock interviews and coaching to help you walk in confident and prepared.</p>
+            </div>
+            <div class="training-card">
+                <div class="training-icon">💼</div>
+                <h3>Workplace Communication</h3>
+                <p>Email etiquette, teamwork, and professional conduct for any work environment.</p>
+            </div>
+            <div class="training-card">
+                <div class="training-icon">✨</div>
+                <h3>Grooming & Presentation</h3>
+                <p>Personal presentation standards expected in hospitality and corporate settings.</p>
+            </div>
+        </div>
+        <div class="training-pipeline">
+            <div class="pipeline-step">Apply</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">Train</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">Get Deployed</div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">Build a Career</div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════
+         CV REVIEW
+    ══════════════════════════ -->
+    <section id="cv-review">
+        <p class="section-label">For Job Seekers</p>
+        <h2 class="section-title">CV <span>Review</span></h2>
+        <div class="divider"></div>
+        <p class="section-subtitle">
+            Get honest, practical feedback on your CV from people who know what employers actually look for.
+        </p>
+        <div class="cv-wrapper">
+            <div class="cv-step">
+                <p class="cv-num">STEP 1</p>
+                <h4>Submit Your CV</h4>
+                <p>Send us your current CV along with the type of role you're targeting.</p>
+            </div>
+            <div class="cv-step">
+                <p class="cv-num">STEP 2</p>
+                <h4>Get Reviewed</h4>
+                <p>Our team reviews it for structure, clarity, and how well it presents your experience.</p>
+            </div>
+            <div class="cv-step">
+                <p class="cv-num">STEP 3</p>
+                <h4>Receive Feedback</h4>
+                <p>You get clear, actionable notes you can apply immediately — no jargon, just what works.</p>
+            </div>
+            <div class="cv-step">
+                <p class="cv-num">STEP 4</p>
+                <h4>Apply With Confidence</h4>
+                <p>Use your improved CV to apply through our job board or anywhere else.</p>
+            </div>
+            <div class="cv-cta">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdKaVCQWnbtJNTUS4DHIRHNnNxXKv-3FCIbt-tSDVmv9CaNGA/viewform?usp=header"
+                    target="_blank" rel="noopener noreferrer" class="btn-primary">Submit Your CV →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════
+         JOB BOARD
+    ══════════════════════════ -->
+    <section id="jobs">
+        <p class="section-label">For Job Seekers</p>
+        <h2 class="section-title">Current <span>Openings</span></h2>
+        <div class="divider"></div>
+        <p class="section-subtitle">
+            Roles from organizations hiring through Servora — for our trained talent pool.
+        </p>
+        <div class="jobs-list">
+            <div class="job-row">
+                <div class="job-info">
+                    <h4>Event Server — Multiple Positions</h4>
+                    <div class="job-meta">
+                        <span class="job-tag">Event · Short-term</span>
+                        <span class="job-tag">Lagos</span>
+                    </div>
+                </div>
+                <a href="#join" class="btn-outline">Apply</a>
+            </div>
+            <div class="job-row">
+                <div class="job-info">
+                    <h4>Front Desk Receptionist</h4>
+                    <div class="job-meta">
+                        <span class="job-tag">Corporate · Full-time</span>
+                        <span class="job-tag">Ibadan</span>
+                    </div>
+                </div>
+                <a href="#join" class="btn-outline">Apply</a>
+            </div>
+            <div class="job-row">
+                <div class="job-info">
+                    <h4>Event Usher — Weekend Roles</h4>
+                    <div class="job-meta">
+                        <span class="job-tag">Event · Part-time</span>
+                        <span class="job-tag">Lagos</span>
+                    </div>
+                </div>
+                <a href="#join" class="btn-outline">Apply</a>
+            </div>
+        </div>
+        <p class="jobs-empty-note">Openings are added as our organizational partners request staff. Join our
+            talent pool to be matched to new roles as they come in.</p>
+        <div class="jobs-cta-center">
+            <a href="#join" class="btn-primary">Join the Talent Pool</a>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════
+         GALLERY
+    ══════════════════════════ -->
+    <section id="gallery">
+        <p class="section-label">Our Work</p>
+        <h2 class="section-title">Event <span>Gallery</span></h2>
+        <div class="divider"></div>
+        <p class="section-subtitle">
+            A glimpse of our team in action across various events.
+        </p>
+        <div class="gallery-grid">
+            <div class="gallery-item" onclick="openLightbox(this)">
+                <div class="gallery-placeholder">
+                    <img src="./images/WhatsApp Image 2026-06-16 at 09.29.43.jpeg" alt="">
+                    <p>Event Photo 1</p>
+                </div>
+                <div class="gallery-overlay"><span>🔍</span></div>
+            </div>
+
+            <div class="gallery-item" onclick="openLightbox(this)">
+                <div class="gallery-placeholder">
+                    <img src="./images/WhatsApp Image 2026-06-16 at 10.04.06.jpeg" width="100px" height="100px" alt="">
+                </div>
+                <div class="gallery-overlay"><span>🔍</span></div>
+            </div>
+
+            <div class="gallery-item" onclick="openLightbox(this)">
+                <div class="gallery-placeholder">
+                    <img src="./images/WhatsApp Image 2026-06-16 at 09.29.39 (1).jpeg" width="100px" height="100px"
+                        alt="">
+                </div>
+                <div class="gallery-overlay"><span>🔍</span></div>
+            </div>
+
+            <div class="gallery-item" onclick="openLightbox(this)">
+                <div class="gallery-placeholder">
+                    <img src="./images/IMG_3755.jpg" alt="">
+                </div>
+                <div class="gallery-overlay"><span>🔍</span></div>
+            </div>
+
+            <div class="gallery-item" onclick="openLightbox(this)">
+                <div class="gallery-placeholder">
+                    <img src="./images/IMG_3953.PNG" alt="">
+                </div>
+                <div class="gallery-overlay"><span>🔍</span></div>
+            </div>
+
+            <div class="gallery-item" onclick="openLightbox(this)">
+                <div class="gallery-placeholder">
+                    <img src="./images/IMG_3954.PNG" alt="">
+                </div>
+                <div class="gallery-overlay"><span>🔍</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+        <img src="" alt="Gallery Image" id="lightboxImg">
+    </div>
+
+    <!-- ══════════════════════════
+         TEAM
+    ══════════════════════════ -->
+    <section id="team">
+        <p class="section-label">The People Behind Servora</p>
+        <h2 class="section-title">Meet the <span>Team</span></h2>
+        <div class="divider"></div>
+        <p class="section-subtitle">
+            Our experienced management team drives our commitment
+            to excellence in every engagement.
+        </p>
+        <div class="team-grid">
+            <div class="team-card">
+                <img src="./images/IMG_2577.jpg" alt="" class="team-photo">
+                <h3>Spence Oluwakuade Olawale</h3>
+                <p class="role">Co-Founder & CEO</p>
+                <p>With over 4+ years in Customer Relationship and Hospitality Management, Spence leads Servora's vision
+                    of redefining workforce solutions in Nigeria.</p>
+            </div>
+            <div class="team-card">
+                <img src="./images/IMG_2578.jpg" alt="" class="team-photo">
+                <h3>Tomilola Johnson</h3>
+                <p class="role">Co-Founder & CEO</p>
+                <p>Tomilola oversees all deployments and training, ensuring every placement meets Servora's high
+                    standards of professionalism.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════
+         JOIN THE TALENT POOL
+    ══════════════════════════ -->
+    <section id="join">
+
+        <h2 class="section-title">Join Our <span>Talent Pool</span></h2>
+        <div class="divider"></div>
+        <p class="section-subtitle">
+            Are you passionate about hospitality, customer service, or corporate support work?
+            We'd love to have you on board.
+        </p>
+
+        <div class="join-wrapper">
+
+            <!-- Left: Why join + perks -->
+            <div class="join-left">
+                <h2>Be Part of Something <span>Exceptional</span></h2>
+                <p>
+                    At Servora, we don't just fill positions — we build careers. Once you join our talent
+                    pool, you're trained, then matched to opportunities — whether that's a one-off event,
+                    a corporate placement, or a permanent role with one of our partner organizations —
+                    across Ibadan and Lagos.
+                </p>
+                <ul class="join-perks">
+                    <li>
+                        <span class="perk-icon">✦</span>
+                        <span><strong>Professional Training</strong> — All new staff receive thorough onboarding and
+                            skills training before deployment.</span>
+                    </li>
+                    <li>
+                        <span class="perk-icon">✦</span>
+                        <span><strong>CV Review & Interview Prep</strong> — Get support presenting yourself well,
+                            whether the role is with us or elsewhere.</span>
+                    </li>
+                    <li>
+                        <span class="perk-icon">✦</span>
+                        <span><strong>Flexible Scheduling</strong> — Work events that fit your availability, ideal for
+                            students and part-time seekers.</span>
+                    </li>
+                    
+                    <li>
+                        <span class="perk-icon">✦</span>
+                        <span><strong>Growth Opportunities</strong> — Top performers are given leadership roles,
+                            priority placements, and referrals to corporate roles.</span>
+                    </li>
+                    
+                </ul>
+            </div>
+
+            <!-- Right: Open roles grid -->
+            <div>
+                <div class="join-roles">
+                    <div class="role-card">
+                        <span class="role-icon">🍽️</span>
+                        <h4>Event Servers</h4>
+                        <p>Food & beverage service at weddings, parties, and corporate functions.</p>
+                    </div>
+                    <div class="role-card">
+                        <span class="role-icon">🎪</span>
+                        <h4>Event Ushers</h4>
+                        <p>Guest management, seating coordination, and front-of-event support.</p>
+                    </div>
+                    <div class="role-card">
+                        <span class="role-icon">🏨</span>
+                        <h4>Venue Staff</h4>
+                        <p>On-site support for hotels, resorts, and event centres.</p>
+                    </div>
+                    <div class="role-card">
+                        <span class="role-icon">🏢</span>
+                        <h4>Corporate Roles</h4>
+                        <p>Front desk, admin, and customer service placements with partner organizations.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Full-width CTA bar -->
+            <div class="join-cta-box">
+                <div class="cta-text">
+                    <h3>Ready to get started?</h3>
+                    <p>Fill out our application form — it takes less than 3 minutes. We review all applications and will
+                        be in touch shortly.</p>
+                </div>
+                <!-- 
+                    ↓↓↓ REPLACE THE href BELOW WITH YOUR ACTUAL GOOGLE FORM LINK ↓↓↓
+                -->
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdKaVCQWnbtJNTUS4DHIRHNnNxXKv-3FCIbt-tSDVmv9CaNGA/viewform?usp=header"
+                    target="_blank" rel="noopener noreferrer" class="btn-join">
+                    Apply Now →
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ══════════════════════════
+         BOOKING
+    ══════════════════════════ -->
+    <section id="booking">
+        <p class="section-label">For Organizations and Individuals — Get In Touch</p>
+        <h2 class="section-title">Book a <span>Consultation</span></h2>
+        <div class="divider"></div>
+        <p class="section-subtitle">
+            Tell us about your event or staffing needs and we'll get back to you within 24 hours.
+        </p>
+        <div class="booking-wrapper">
+            <form id="bookingForm" onsubmit="submitBooking(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" name="FirstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" name="LastName" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" name="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" name="Phone" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>What Do You Need?</label>
+                    <select name="RequestType" required>
+                        <option value="">-- Select --</option>
+                        <option>Event Coordinators</option>
+                        <option>Event Ushers</option>
+                        <option>Event Waiters/Waitress</option>
+                        <option>Corporate Staffing</option>
+                        <option>CV Writing and Review</option>
+                        <option>LinkedIn Profile</option>
+                        <option>Staff Training</option>
+                        <option>Customer Service/VA training</option>
+                        <option>Not Sure Yet</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Event / Role Type</label>
+                        <select name="EventType">
+                            <option value="">-- Select --</option>
+                            <option>Wedding</option>
+                            <option>Birthday Party</option>
+                            <option>Corporate Event</option> 
+                            <option>Conference</option>
+                            <option>Private Dinner</option>
+                            <option>Ongoing Corporate Role</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Date Needed</label>
+                        <input type="date" name="EventDate">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Number of Staff Needed</label>
+                    <select name="StaffCount">
+                        <option value="">-- Select range --</option>
+                        <option>1 – 5</option>
+                        <option>6 – 10</option>
+                        <option>11 – 20</option>
+                        <option>21 – 50</option>
+                        <option>50+</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Tell Us More</label>
+                    <textarea name="Message" placeholder="Event location, role requirements, etc."></textarea>
+                </div>
+                <button type="submit" class="btn-primary" id="bookingSubmitBtn">
+                    Send Consultation Request
+                </button>
+            </form>
+            <div class="booking-success" id="bookingSuccess">
+                <span class="check">✅</span>
+                <strong>Thank you!</strong><br>
+                Your consultation request has been received.<br>
+                We'll be in touch within 24 hours.
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════
+         FOOTER
+    ══════════════════════════ -->
+    <footer>
+        <div class="footer-logo">Serv<span>ora</span></div>
+        <div class="footer-tagline">Workforce Solutions</div>
+
+        <div class="footer-columns">
+            <div class="footer-col">
+                <h5>For Organizations</h5>
+                <a href="#services">Event Staffing</a>
+                <a href="#corporate">Corporate Staffing</a>
+                <a href="#booking">Book a Consultation</a>
+            </div>
+            <div class="footer-col">
+                <h5>For Job Seekers</h5>
+                <a href="#training">Training</a>
+                <a href="#cv-review">CV Review</a>
+                <a href="#jobs">Current Openings</a>
+                <a href="#join">Join Talent Pool</a>
+            </div>
+            <div class="footer-col">
+                <h5>Company</h5>
+                <a href="#gallery">Gallery</a>
+                <a href="#team">Our Team</a>
+                <a href="#home">Home</a>
+            </div>
+        </div>
+
+        <p>📍 Ibadan and Lagos, Nigeria &nbsp;|&nbsp; 📞 +234 903 024 4084, +234 706 594 8519 &nbsp;|&nbsp; ✉️
+            servorahospitalityservices@gmail.com</p>
+        <p style="margin-top:1rem;">© 2026 Servora Workforce Solutions. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // ── Navbar Toggle ──
+        function toggleNav() {
+            document.getElementById('navLinks').classList.toggle('open');
+        }
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('open');
+            });
+        });
+
+        // ── Lightbox ──
+        function openLightbox(item) {
+            const img = item.querySelector('img');
+            if (img) {
+                document.getElementById('lightboxImg').src = img.src;
+                document.getElementById('lightbox').classList.add('open');
+            }
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('open');
+        }
+
+        document.getElementById('lightbox').addEventListener('click', function (e) {
+            if (e.target === this) closeLightbox();
+        });
+
+        // ── Booking Form ──
+        const BOOKING_URL = "https://script.google.com/macros/s/AKfycbycBSP1gKYSaahXZbYBr2FH0E5iQBypAUuWkDjgnhdZkP407IcHn4esZ-qfEH7FqObrlg/exec";
+
+        function submitBooking(e) {
+            e.preventDefault();
+            const form = document.getElementById('bookingForm');
+            const btn = document.getElementById('bookingSubmitBtn');
+            const data = Object.fromEntries(new FormData(form));
+
+            btn.disabled = true;
+            btn.textContent = "Sending...";
+
+            fetch(BOOKING_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "text/plain" },
+                body: JSON.stringify({ Type: "Booking", ...data })
+            }).then(() => {
+                form.style.display = 'none';
+                document.getElementById('bookingSuccess').style.display = 'block';
+            }).catch(() => {
+                alert("Something went wrong. Please try again.");
+                btn.disabled = false;
+                btn.textContent = "Send Consultation Request";
+            });
+        }
+
+        // ── Navbar scroll effect ──
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            nav.style.boxShadow = window.scrollY > 50
+                ? '0 2px 20px rgba(0,0,0,0.3)'
+                : 'none';
+        });
+    </script>
+
+</body>
+
+</html>
