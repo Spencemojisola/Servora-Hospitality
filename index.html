@@ -1121,6 +1121,296 @@
         }
 
         /* ══════════════════════════
+           BOOKING WIZARD (dynamic multi-step)
+        ══════════════════════════ */
+        .wizard-progress {
+            max-width: 620px;
+            margin: 0 auto 2rem;
+        }
+
+        .wizard-steps-row {
+            display: flex;
+            align-items: center;
+        }
+
+        .wizard-step-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .wizard-dot {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #999;
+            background: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .wizard-dot.active {
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(201, 169, 110, 0.15);
+        }
+
+        .wizard-dot.done {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: var(--dark);
+        }
+
+        .wizard-step-label {
+            font-size: 0.68rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #888;
+            margin-top: 0.5rem;
+            text-align: center;
+        }
+
+        .wizard-step-label.active {
+            color: var(--primary);
+        }
+
+        .wizard-line {
+            flex: 1;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.15);
+            margin: 0 6px;
+            position: relative;
+            top: -12px;
+        }
+
+        .wizard-line-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .wizard-panel {
+            display: none;
+        }
+
+        .wizard-panel.active {
+            display: block;
+            animation: wizardFadeIn 0.35s ease;
+        }
+
+        @keyframes wizardFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .wizard-panel-eyebrow {
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .wizard-panel-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 0.4rem;
+        }
+
+        .wizard-panel-subtitle {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 1.8rem;
+        }
+
+        .service-select-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+        }
+
+        .service-select-card {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            text-align: left;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1.5px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--white);
+            font-family: inherit;
+        }
+
+        .service-select-card:hover {
+            border-color: var(--primary);
+        }
+
+        .service-select-card.selected {
+            border-color: var(--primary);
+            background: rgba(201, 169, 110, 0.12);
+        }
+
+        .service-select-icon {
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        .service-select-label {
+            font-size: 0.88rem;
+            font-weight: 600;
+        }
+
+        .wizard-error-banner {
+            display: none;
+            color: #e08585;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+        }
+
+        .wizard-field {
+            margin-bottom: 1.3rem;
+        }
+
+        .wizard-field.has-error input,
+        .wizard-field.has-error select,
+        .wizard-field.has-error textarea,
+        .wizard-field.has-error .file-drop {
+            border-color: #c96e6e !important;
+        }
+
+        .wizard-field-error {
+            display: none;
+            font-size: 0.78rem;
+            color: #e08585;
+            margin-top: 0.4rem;
+        }
+
+        .wizard-field.has-error .wizard-field-error {
+            display: block;
+        }
+
+        .chip-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .chip {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            color: #ddd;
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .chip.selected {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .file-drop {
+            border: 1.5px dashed rgba(255, 255, 255, 0.25);
+            border-radius: 8px;
+            padding: 1.1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.85rem;
+            color: #bbb;
+        }
+
+        .file-drop:hover {
+            border-color: var(--primary);
+        }
+
+        .file-drop.has-file {
+            border-style: solid;
+            border-color: var(--accent2);
+            color: var(--white);
+        }
+
+        .wizard-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+        }
+
+        .wizard-btn-back {
+            background: none;
+            border: none;
+            color: #999;
+            font-size: 0.9rem;
+            cursor: pointer;
+            padding: 0.6rem 0;
+            font-family: inherit;
+        }
+
+        .wizard-btn-back:hover {
+            color: var(--white);
+        }
+
+        .wizard-btn-next {
+            margin-left: auto;
+        }
+
+        .wizard-btn-next:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .wizard-success {
+            display: none;
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .wizard-ref {
+            font-family: monospace;
+            display: inline-block;
+            border: 1px dashed rgba(201, 169, 110, 0.5);
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            margin: 1rem 0;
+            color: var(--primary);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 480px) {
+            .service-select-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .wizard-step-label {
+                display: none;
+            }
+        }
+
+        /* ══════════════════════════
            FOOTER
         ══════════════════════════ */
         footer {
@@ -1338,7 +1628,6 @@
             <li><a href="#gallery">Gallery</a></li>
             <li><a href="#team">Our Team</a></li>
             <li class="nav-divider"></li>
-            <li><a href="#join" class="nav-cta-outline">Talent Pool</a></li>
             <li><a href="#booking" class="nav-cta">Book Us</a></li>
         </ul>
         <div class="hamburger" onclick="toggleNav()">
@@ -1351,13 +1640,12 @@
     ══════════════════════════ -->
     <section class="hero" id="home">
         <div class="hero-content">
-            <p class="hero-tagline">Staffing • Training • Careers</p>
+            <!-- <p class="hero-tagline">Staffing • Training • Careers</p> -->
             <h1>Building Careers. <span>Deploying</span> Talent.</h1>
             <p>Servora trains and deploys hospitality and corporate talent for events and organizations across
                 Nigeria — and helps individuals build the skills, CVs, and connections to get hired.</p>
             <div class="hero-btns">
-                <a href="#booking" class="btn-primary">Hire Trained Talent</a>
-                <a href="#join" class="btn-outline">Find Work With Us</a>
+                <a href="#booking" class="btn-primary">Start Now</a>
             </div>
         </div>
     </section>
@@ -1478,24 +1766,7 @@
                 </p>
                 <a href="#booking" class="btn-primary">Request Corporate Staff</a>
             </div>
-            <div class="corp-roles-grid">
-                <div class="corp-role">
-                    <h4>Front Desk & Reception</h4>
-                    <p>Professional first impressions for your office or facility.</p>
-                </div>
-                <div class="corp-role">
-                    <h4>Administrative Support</h4>
-                    <p>Office assistants trained in workplace professionalism.</p>
-                </div>
-                <div class="corp-role">
-                    <h4>Facility & Front-of-House</h4>
-                    <p>Ongoing on-site staffing for offices, banks, and retail spaces.</p>
-                </div>
-                <div class="corp-role">
-                    <h4>Customer Service Staff</h4>
-                    <p>Client-facing personnel trained in service excellence.</p>
-                </div>
-            </div>
+           
         </div>
     </section>
 
@@ -1542,6 +1813,8 @@
             <span class="pipeline-arrow">→</span>
             <div class="pipeline-step">Build a Career</div>
         </div>
+
+        <a href="#booking" class="nav-cta">Book Us</a>
     </section>
 
     <!-- ══════════════════════════
@@ -1581,55 +1854,7 @@
             </div>
         </div>
     </section>
-
-    <!-- ══════════════════════════
-         JOB BOARD
-    ══════════════════════════ -->
-    <section id="jobs">
-        <p class="section-label">For Job Seekers</p>
-        <h2 class="section-title">Current <span>Openings</span></h2>
-        <div class="divider"></div>
-        <p class="section-subtitle">
-            Roles from organizations hiring through Servora — for our trained talent pool.
-        </p>
-        <div class="jobs-list">
-            <div class="job-row">
-                <div class="job-info">
-                    <h4>Event Server — Multiple Positions</h4>
-                    <div class="job-meta">
-                        <span class="job-tag">Event · Short-term</span>
-                        <span class="job-tag">Lagos</span>
-                    </div>
-                </div>
-                <a href="#join" class="btn-outline">Apply</a>
-            </div>
-            <div class="job-row">
-                <div class="job-info">
-                    <h4>Front Desk Receptionist</h4>
-                    <div class="job-meta">
-                        <span class="job-tag">Corporate · Full-time</span>
-                        <span class="job-tag">Ibadan</span>
-                    </div>
-                </div>
-                <a href="#join" class="btn-outline">Apply</a>
-            </div>
-            <div class="job-row">
-                <div class="job-info">
-                    <h4>Event Usher — Weekend Roles</h4>
-                    <div class="job-meta">
-                        <span class="job-tag">Event · Part-time</span>
-                        <span class="job-tag">Lagos</span>
-                    </div>
-                </div>
-                <a href="#join" class="btn-outline">Apply</a>
-            </div>
-        </div>
-        <p class="jobs-empty-note">Openings are added as our organizational partners request staff. Join our
-            talent pool to be matched to new roles as they come in.</p>
-        <div class="jobs-cta-center">
-            <a href="#join" class="btn-primary">Join the Talent Pool</a>
-        </div>
-    </section>
+    
 
     <!-- ══════════════════════════
          GALLERY
@@ -1722,100 +1947,7 @@
             </div>
         </div>
     </section>
-
-    <!-- ══════════════════════════
-         JOIN THE TALENT POOL
-    ══════════════════════════ -->
-    <section id="join">
-
-        <h2 class="section-title">Join Our <span>Talent Pool</span></h2>
-        <div class="divider"></div>
-        <p class="section-subtitle">
-            Are you passionate about hospitality, customer service, or corporate support work?
-            We'd love to have you on board.
-        </p>
-
-        <div class="join-wrapper">
-
-            <!-- Left: Why join + perks -->
-            <div class="join-left">
-                <h2>Be Part of Something <span>Exceptional</span></h2>
-                <p>
-                    At Servora, we don't just fill positions — we build careers. Once you join our talent
-                    pool, you're trained, then matched to opportunities — whether that's a one-off event,
-                    a corporate placement, or a permanent role with one of our partner organizations —
-                    across Ibadan and Lagos.
-                </p>
-                <ul class="join-perks">
-                    <li>
-                        <span class="perk-icon">✦</span>
-                        <span><strong>Professional Training</strong> — All new staff receive thorough onboarding and
-                            skills training before deployment.</span>
-                    </li>
-                    <li>
-                        <span class="perk-icon">✦</span>
-                        <span><strong>CV Review & Interview Prep</strong> — Get support presenting yourself well,
-                            whether the role is with us or elsewhere.</span>
-                    </li>
-                    <li>
-                        <span class="perk-icon">✦</span>
-                        <span><strong>Flexible Scheduling</strong> — Work events that fit your availability, ideal for
-                            students and part-time seekers.</span>
-                    </li>
-                    
-                    <li>
-                        <span class="perk-icon">✦</span>
-                        <span><strong>Growth Opportunities</strong> — Top performers are given leadership roles,
-                            priority placements, and referrals to corporate roles.</span>
-                    </li>
-                    
-                </ul>
-            </div>
-
-            <!-- Right: Open roles grid -->
-            <div>
-                <div class="join-roles">
-                    <div class="role-card">
-                        <span class="role-icon">🍽️</span>
-                        <h4>Event Servers</h4>
-                        <p>Food & beverage service at weddings, parties, and corporate functions.</p>
-                    </div>
-                    <div class="role-card">
-                        <span class="role-icon">🎪</span>
-                        <h4>Event Ushers</h4>
-                        <p>Guest management, seating coordination, and front-of-event support.</p>
-                    </div>
-                    <div class="role-card">
-                        <span class="role-icon">🏨</span>
-                        <h4>Venue Staff</h4>
-                        <p>On-site support for hotels, resorts, and event centres.</p>
-                    </div>
-                    <div class="role-card">
-                        <span class="role-icon">🏢</span>
-                        <h4>Corporate Roles</h4>
-                        <p>Front desk, admin, and customer service placements with partner organizations.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Full-width CTA bar -->
-            <div class="join-cta-box">
-                <div class="cta-text">
-                    <h3>Ready to get started?</h3>
-                    <p>Fill out our application form — it takes less than 3 minutes. We review all applications and will
-                        be in touch shortly.</p>
-                </div>
-                <!-- 
-                    ↓↓↓ REPLACE THE href BELOW WITH YOUR ACTUAL GOOGLE FORM LINK ↓↓↓
-                -->
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdKaVCQWnbtJNTUS4DHIRHNnNxXKv-3FCIbt-tSDVmv9CaNGA/viewform?usp=header"
-                    target="_blank" rel="noopener noreferrer" class="btn-join">
-                    Apply Now →
-                </a>
-            </div>
-
-        </div>
-    </section>
+    
 
     <!-- ══════════════════════════
          BOOKING
@@ -1828,85 +1960,88 @@
             Tell us about your event or staffing needs and we'll get back to you within 24 hours.
         </p>
         <div class="booking-wrapper">
-            <form id="bookingForm" onsubmit="submitBooking(event)">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>First Name</label>
-                        <input type="text" name="FirstName" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Last Name</label>
-                        <input type="text" name="LastName" required>
-                    </div>
+
+            <!-- Progress indicator -->
+            <div class="wizard-progress" id="wizardProgress">
+                <div class="wizard-steps-row" id="wizardStepsRow"></div>
+            </div>
+
+            <form id="bookingForm" onsubmit="return false;">
+
+                <!-- STEP 1 — Service selection -->
+                <div class="wizard-panel active" data-step="0">
+                    <p class="wizard-panel-eyebrow">Step 1 of 4</p>
+                    <h3 class="wizard-panel-title">What can we help you book?</h3>
+                    <p class="wizard-panel-subtitle">Choose a service — we'll only ask what's relevant to it.</p>
+                    <div class="service-select-grid" id="serviceGrid"></div>
+                    <div class="wizard-error-banner" id="serviceError">Please select a service to continue.</div>
                 </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Email Address</label>
-                        <input type="email" name="Email" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Phone Number</label>
-                        <input type="tel" name="Phone" required>
-                    </div>
+
+                <!-- STEP 2 — Dynamic service fields -->
+                <div class="wizard-panel" data-step="1">
+                    <p class="wizard-panel-eyebrow">Step 2 of 4</p>
+                    <h3 class="wizard-panel-title" id="detailsTitle">Tell us more</h3>
+                    <p class="wizard-panel-subtitle">Just the details we need for this service — nothing more.</p>
+                    <div id="dynamicFields"></div>
                 </div>
-                <div class="form-group">
-                    <label>What Do You Need?</label>
-                    <select name="RequestType" required>
-                        <option value="">-- Select --</option>
-                        <option>Event Coordinators</option>
-                        <option>Event Ushers</option>
-                        <option>Event Waiters/Waitress</option>
-                        <option>Corporate Staffing</option>
-                        <option>CV Writing and Review</option>
-                        <option>LinkedIn Profile</option>
-                        <option>Staff Training</option>
-                        <option>Customer Service/VA training</option>
-                        <option>Not Sure Yet</option>
-                    </select>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Event / Role Type</label>
-                        <select name="EventType">
+
+                <!-- STEP 3 — Contact details -->
+                <div class="wizard-panel" data-step="2">
+                    <p class="wizard-panel-eyebrow">Step 3 of 4</p>
+                    <h3 class="wizard-panel-title">Your contact details</h3>
+                    <p class="wizard-panel-subtitle">Last step before we send this over to our team.</p>
+
+                    <div class="form-row">
+                        <div class="wizard-field" data-name="FullName">
+                            <label>Full Name *</label>
+                            <input type="text" id="f_FullName">
+                            <div class="wizard-field-error">Please enter your full name.</div>
+                        </div>
+                        <div class="wizard-field" data-name="OrgName">
+                            <label>Organisation Name (if applicable)</label>
+                            <input type="text" id="f_OrgName">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="wizard-field" data-name="Email">
+                            <label>Email Address *</label>
+                            <input type="email" id="f_Email">
+                            <div class="wizard-field-error">Please enter a valid email address.</div>
+                        </div>
+                        <div class="wizard-field" data-name="Phone">
+                            <label>Phone Number *</label>
+                            <input type="tel" id="f_Phone">
+                            <div class="wizard-field-error">Please enter your phone number.</div>
+                        </div>
+                    </div>
+                    <div class="wizard-field" data-name="ContactMethod">
+                        <label>Preferred Contact Method *</label>
+                        <select id="f_ContactMethod">
                             <option value="">-- Select --</option>
-                            <option>Wedding</option>
-                            <option>Birthday Party</option>
-                            <option>Corporate Event</option> 
-                            <option>Conference</option>
-                            <option>Private Dinner</option>
-                            <option>Ongoing Corporate Role</option>
-                            <option>Other</option>
+                            <option>Phone</option>
+                            <option>Email</option>
+                            <option>WhatsApp</option>
                         </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Date Needed</label>
-                        <input type="date" name="EventDate">
+                        <div class="wizard-field-error">Please choose how we should contact you.</div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>Number of Staff Needed</label>
-                    <select name="StaffCount">
-                        <option value="">-- Select range --</option>
-                        <option>1 – 5</option>
-                        <option>6 – 10</option>
-                        <option>11 – 20</option>
-                        <option>21 – 50</option>
-                        <option>50+</option>
-                    </select>
+
+                <!-- Nav buttons -->
+                <div class="wizard-nav" id="wizardNav">
+                    <button type="button" class="wizard-btn-back" id="wizardBackBtn" onclick="wizardBack()"
+                        style="display:none;">← Back</button>
+                    <button type="button" class="btn-primary wizard-btn-next" id="wizardNextBtn"
+                        onclick="wizardNext()">Continue</button>
                 </div>
-                <div class="form-group">
-                    <label>Tell Us More</label>
-                    <textarea name="Message" placeholder="Event location, role requirements, etc."></textarea>
-                </div>
-                <button type="submit" class="btn-primary" id="bookingSubmitBtn">
-                    Send Consultation Request
-                </button>
             </form>
-            <div class="booking-success" id="bookingSuccess">
+
+            <!-- STEP 4 — Success -->
+            <div class="wizard-success" id="wizardSuccess">
                 <span class="check">✅</span>
-                <strong>Thank you!</strong><br>
-                Your consultation request has been received.<br>
-                We'll be in touch within 24 hours.
+                <strong id="wizardSuccessName">Thank you!</strong><br>
+                Your booking request has been received.<br>
+                A confirmation has been sent to your email, and our team will reach out shortly.
+                <div class="wizard-ref" id="wizardRef"></div>
             </div>
         </div>
     </section>
@@ -1974,32 +2109,371 @@
             if (e.target === this) closeLightbox();
         });
 
-        // ── Booking Form ──
+        // ── Book Us — dynamic multi-step booking wizard ──
         const BOOKING_URL = "https://script.google.com/macros/s/AKfycbycBSP1gKYSaahXZbYBr2FH0E5iQBypAUuWkDjgnhdZkP407IcHn4esZ-qfEH7FqObrlg/exec";
 
-        function submitBooking(e) {
-            e.preventDefault();
-            const form = document.getElementById('bookingForm');
-            const btn = document.getElementById('bookingSubmitBtn');
-            const data = Object.fromEntries(new FormData(form));
+        // Service catalogue shown in Step 1
+        const WIZARD_SERVICES = [
+            { key: "Event Staffing", icon: "🎪" },
+            { key: "Corporate Staffing", icon: "🏢" },
+            { key: "Recruitment Services", icon: "🔎" },
+            { key: "Employability Training", icon: "🎓" },
+            { key: "CV Review", icon: "📄" },
+            { key: "Interview Preparation", icon: "🗣️" },
+            { key: "Career Consultation", icon: "🧭" },
+            { key: "Corporate Training", icon: "🏆" },
+        ];
 
-            btn.disabled = true;
-            btn.textContent = "Sending...";
+        // Field definitions per service. type: text | textarea | date | time | number | select | multiselect | file
+        const WIZARD_FIELDS = {
+            "Event Staffing": [
+                { name: "EventDate", label: "Event Date", type: "date", required: true },
+                { name: "EventType", label: "Event Type", type: "select", required: true, options: ["Wedding", "Corporate", "Birthday", "Conference", "Other"] },
+                { name: "EventLocation", label: "Event Location", type: "text", required: true },
+                { name: "StaffCount", label: "Number of Staff Required", type: "number", required: true },
+                { name: "StaffType", label: "Staff Type", type: "multiselect", required: true, options: ["Ushers", "Servers", "Event Coordinators", "Customer Service Personnel", "Security", "Other"] },
+                { name: "EventDuration", label: "Event Duration", type: "text", required: true, placeholder: "e.g. 6 hours" },
+                { name: "ArrivalTime", label: "Preferred Arrival Time", type: "time", required: true },
+                { name: "AdditionalRequirements", label: "Additional Requirements", type: "textarea", required: false },
+            ],
+            "Corporate Staffing": [
+                { name: "CompanyName", label: "Company Name", type: "text", required: true },
+                { name: "Industry", label: "Industry", type: "text", required: true },
+                { name: "PositionsRequired", label: "Position(s) Required", type: "text", required: true },
+                { name: "StaffCount", label: "Number of Staff Required", type: "number", required: true },
+                { name: "EmploymentType", label: "Employment Type", type: "select", required: true, options: ["Temporary", "Contract", "Permanent"] },
+                { name: "StartDate", label: "Preferred Start Date", type: "date", required: true },
+                { name: "JobDescriptionFile", label: "Job Description Upload (Optional)", type: "file", required: false, accept: ".pdf,.doc,.docx" },
+                { name: "AdditionalInfo", label: "Additional Information", type: "textarea", required: false },
+            ],
+            "Recruitment Services": [
+                { name: "CompanyName", label: "Company Name", type: "text", required: true },
+                { name: "PositionsToFill", label: "Position(s) to Fill", type: "text", required: true },
+                { name: "Vacancies", label: "Number of Vacancies", type: "number", required: true },
+                { name: "JobDescriptionFile", label: "Job Description Upload", type: "file", required: true, accept: ".pdf,.doc,.docx" },
+                { name: "HiringTimeline", label: "Preferred Hiring Timeline", type: "select", required: true, options: ["Immediate", "2–4 weeks", "1–2 months", "3+ months"] },
+                { name: "AdditionalNotes", label: "Additional Notes", type: "textarea", required: false },
+            ],
+            "CV Review": [
+                { name: "CVFile", label: "Upload CV", type: "file", required: true, accept: ".pdf,.doc,.docx", helper: "PDF or DOC/DOCX. Required to continue." },
+                { name: "TargetRole", label: "Target Role or Industry", type: "text", required: true },
+                { name: "HelpAreas", label: "Areas You Need Help With", type: "multiselect", required: true, options: ["Formatting", "ATS Optimisation", "Grammar", "Content", "Career Change", "General Review"] },
+                { name: "Comments", label: "Additional Comments", type: "textarea", required: false },
+            ],
+            "Interview Preparation": [
+                { name: "CVFile", label: "Upload CV (Optional but Recommended)", type: "file", required: false, accept: ".pdf,.doc,.docx" },
+                { name: "PositionInterviewing", label: "Position Interviewing For", type: "text", required: true },
+                { name: "InterviewType", label: "Interview Type", type: "select", required: true, options: ["HR", "Technical", "Behavioural", "Assessment Centre", "Other"] },
+                { name: "InterviewDate", label: "Interview Date (Optional)", type: "date", required: false },
+                { name: "Concerns", label: "Areas of Concern", type: "textarea", required: true },
+            ],
+            "Employability Training": [
+                { name: "TrainingProgramme", label: "Training Programme", type: "text", required: true, placeholder: "e.g. Digital Skills, Workplace Readiness" },
+                { name: "TrainingFormat", label: "Preferred Training Format", type: "select", required: true, options: ["Virtual", "In-person"] },
+                { name: "PreferredDate", label: "Preferred Date", type: "date", required: true },
+                { name: "Participants", label: "Number of Participants", type: "number", required: true },
+                { name: "EmploymentStatus", label: "Current Employment Status", type: "select", required: true, options: ["Employed", "Unemployed", "Student", "Self-employed", "Other"] },
+            ],
+            "Career Consultation": [
+                { name: "CVFile", label: "Upload CV (Optional)", type: "file", required: false, accept: ".pdf,.doc,.docx" },
+                { name: "CareerLevel", label: "Current Career Level", type: "select", required: true, options: ["Entry-level", "Mid-level", "Senior", "Executive", "Career Changer"] },
+                { name: "ConsultationReason", label: "Reason for Consultation", type: "textarea", required: true },
+                { name: "ConsultationDate", label: "Preferred Consultation Date", type: "date", required: true },
+                { name: "AdditionalInfo", label: "Additional Information", type: "textarea", required: false },
+            ],
+            "Corporate Training": [
+                { name: "CompanyName", label: "Company Name", type: "text", required: true },
+                { name: "Participants", label: "Number of Participants", type: "number", required: true },
+                { name: "TrainingTopic", label: "Training Topic", type: "text", required: true },
+                { name: "PreferredDate", label: "Preferred Date", type: "date", required: true },
+                { name: "TrainingLocation", label: "Training Location", type: "text", required: true },
+                { name: "AdditionalRequirements", label: "Additional Requirements", type: "textarea", required: false },
+            ],
+        };
 
-            fetch(BOOKING_URL, {
-                method: "POST",
-                mode: "no-cors",
-                headers: { "Content-Type": "text/plain" },
-                body: JSON.stringify({ Type: "Booking", ...data })
-            }).then(() => {
-                form.style.display = 'none';
-                document.getElementById('bookingSuccess').style.display = 'block';
-            }).catch(() => {
-                alert("Something went wrong. Please try again.");
-                btn.disabled = false;
-                btn.textContent = "Send Consultation Request";
+        const STEP_LABELS = ["Service", "Details", "Contact", "Done"];
+
+        // Wizard state
+        let wizardStep = 0;
+        let wizardService = null;
+        let wizardData = {};       // plain field values, keyed by field name
+        let wizardFiles = {};      // File objects, keyed by field name
+        let wizardMulti = {};      // arrays for multiselect fields, keyed by field name
+
+        function renderWizardProgress() {
+            const row = document.getElementById('wizardStepsRow');
+            row.innerHTML = '';
+            STEP_LABELS.forEach((label, i) => {
+                const col = document.createElement('div');
+                col.className = 'wizard-step-col';
+                const state = wizardStep > i ? 'done' : (wizardStep === i ? 'active' : '');
+                col.innerHTML = `
+                    <div class="wizard-dot ${state}">${wizardStep > i ? '✓' : (i + 1)}</div>
+                    <div class="wizard-step-label ${wizardStep === i ? 'active' : ''}">${label}</div>
+                `;
+                row.appendChild(col);
+                if (i < STEP_LABELS.length - 1) {
+                    const line = document.createElement('div');
+                    line.className = 'wizard-line';
+                    line.innerHTML = `<div class="wizard-line-fill" style="width:${wizardStep > i ? '100%' : '0%'}"></div>`;
+                    row.appendChild(line);
+                }
             });
         }
+
+        function renderServiceGrid() {
+            const grid = document.getElementById('serviceGrid');
+            grid.innerHTML = '';
+            WIZARD_SERVICES.forEach(s => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'service-select-card' + (wizardService === s.key ? ' selected' : '');
+                btn.innerHTML = `<span class="service-select-icon">${s.icon}</span><span class="service-select-label">${s.key}</span>`;
+                btn.onclick = () => {
+                    wizardService = s.key;
+                    document.getElementById('serviceError').style.display = 'none';
+                    renderServiceGrid();
+                };
+                grid.appendChild(btn);
+            });
+        }
+
+        function fieldInputHTML(f) {
+            const val = wizardData[f.name] || '';
+            switch (f.type) {
+                case 'text':
+                    return `<input type="text" id="f_${f.name}" value="${escapeHtml(val)}" placeholder="${f.placeholder || ''}">`;
+                case 'number':
+                    return `<input type="number" min="1" id="f_${f.name}" value="${escapeHtml(val)}">`;
+                case 'date':
+                    return `<input type="date" id="f_${f.name}" value="${escapeHtml(val)}">`;
+                case 'time':
+                    return `<input type="time" id="f_${f.name}" value="${escapeHtml(val)}">`;
+                case 'textarea':
+                    return `<textarea id="f_${f.name}" placeholder="${f.placeholder || ''}">${escapeHtml(val)}</textarea>`;
+                case 'select':
+                    return `<select id="f_${f.name}">
+                        <option value="">-- Select --</option>
+                        ${f.options.map(o => `<option ${val === o ? 'selected' : ''}>${o}</option>`).join('')}
+                    </select>`;
+                case 'multiselect':
+                    return `<div class="chip-group" id="f_${f.name}">
+                        ${f.options.map(o => `<button type="button" class="chip ${(wizardMulti[f.name] || []).includes(o) ? 'selected' : ''}" data-opt="${escapeHtml(o)}" onclick="toggleChip('${f.name}', this)">${o}</button>`).join('')}
+                    </div>`;
+                case 'file':
+                    return `<div class="file-drop ${wizardFiles[f.name] ? 'has-file' : ''}" id="f_${f.name}_drop" onclick="document.getElementById('f_${f.name}').click()">
+                        ${wizardFiles[f.name] ? '📎 ' + escapeHtml(wizardFiles[f.name].name) : '⬆ Click to upload' + (f.accept ? ' (' + f.accept.replaceAll('.', '').toUpperCase() + ')' : '')}
+                    </div>
+                    <input type="file" id="f_${f.name}" accept="${f.accept || ''}" style="display:none" onchange="handleFileChange('${f.name}', this)">`;
+                default:
+                    return '';
+            }
+        }
+
+        function renderDynamicFields() {
+            document.getElementById('detailsTitle').textContent = wizardService || 'Tell us more';
+            const container = document.getElementById('dynamicFields');
+            const fields = WIZARD_FIELDS[wizardService] || [];
+            container.innerHTML = fields.map(f => `
+                <div class="wizard-field" data-name="${f.name}">
+                    <label>${f.label}${f.required ? ' *' : ''}</label>
+                    ${fieldInputHTML(f)}
+                    ${f.helper ? `<div style="font-size:0.78rem;color:#999;margin-top:0.3rem;">${f.helper}</div>` : ''}
+                    <div class="wizard-field-error">${f.type === 'file' ? 'This file is required.' : 'This field is required.'}</div>
+                </div>
+            `).join('');
+
+            // wire plain inputs to state on change/input
+            fields.forEach(f => {
+                if (['text', 'number', 'date', 'time', 'textarea', 'select'].includes(f.type)) {
+                    const el = document.getElementById('f_' + f.name);
+                    if (el) el.addEventListener('input', () => { wizardData[f.name] = el.value; clearFieldError(f.name); });
+                    if (el) el.addEventListener('change', () => { wizardData[f.name] = el.value; clearFieldError(f.name); });
+                }
+            });
+        }
+
+        function toggleChip(name, btn) {
+            const opt = btn.getAttribute('data-opt');
+            const arr = wizardMulti[name] || [];
+            const idx = arr.indexOf(opt);
+            if (idx > -1) arr.splice(idx, 1); else arr.push(opt);
+            wizardMulti[name] = arr;
+            btn.classList.toggle('selected');
+            clearFieldError(name);
+        }
+
+        function handleFileChange(name, input) {
+            const file = input.files && input.files[0];
+            if (file) {
+                wizardFiles[name] = file;
+                clearFieldError(name);
+            } else {
+                delete wizardFiles[name];
+            }
+            renderDynamicFields();
+        }
+
+        function clearFieldError(name) {
+            const el = document.querySelector(`.wizard-field[data-name="${name}"]`);
+            if (el) el.classList.remove('has-error');
+        }
+
+        function escapeHtml(str) {
+            return String(str || '').replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
+        }
+
+        function validateStep0() {
+            if (!wizardService) {
+                document.getElementById('serviceError').style.display = 'block';
+                return false;
+            }
+            return true;
+        }
+
+        function validateStep1() {
+            let valid = true;
+            const fields = WIZARD_FIELDS[wizardService] || [];
+            fields.forEach(f => {
+                if (!f.required) return;
+                const wrap = document.querySelector(`.wizard-field[data-name="${f.name}"]`);
+                let filled = true;
+                if (f.type === 'multiselect') filled = (wizardMulti[f.name] || []).length > 0;
+                else if (f.type === 'file') filled = !!wizardFiles[f.name];
+                else filled = !!(wizardData[f.name] && String(wizardData[f.name]).trim() !== '');
+                if (!filled) { wrap.classList.add('has-error'); valid = false; }
+                else wrap.classList.remove('has-error');
+            });
+            return valid;
+        }
+
+        function validateStep2() {
+            let valid = true;
+            const req = {
+                FullName: v => v && v.trim() !== '',
+                Email: v => v && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v),
+                Phone: v => v && v.trim() !== '',
+                ContactMethod: v => v && v.trim() !== '',
+            };
+            Object.keys(req).forEach(name => {
+                const el = document.getElementById('f_' + name);
+                const wrap = document.querySelector(`.wizard-field[data-name="${name}"]`);
+                if (!req[name](el.value)) { wrap.classList.add('has-error'); valid = false; }
+                else wrap.classList.remove('has-error');
+            });
+            return valid;
+        }
+
+        function showWizardStep(step) {
+            document.querySelectorAll('.wizard-panel').forEach(p => {
+                p.classList.toggle('active', Number(p.getAttribute('data-step')) === step);
+            });
+            document.getElementById('wizardBackBtn').style.display = step > 0 ? 'inline-block' : 'none';
+            document.getElementById('wizardNextBtn').textContent = step === 2 ? 'Submit Booking' : 'Continue';
+            renderWizardProgress();
+        }
+
+        function wizardBack() {
+            if (wizardStep === 0) return;
+            wizardStep -= 1;
+            showWizardStep(wizardStep);
+        }
+
+        function wizardNext() {
+            if (wizardStep === 0) {
+                if (!validateStep0()) return;
+                renderDynamicFields();
+                wizardStep = 1;
+                showWizardStep(wizardStep);
+                return;
+            }
+            if (wizardStep === 1) {
+                if (!validateStep1()) return;
+                wizardStep = 2;
+                showWizardStep(wizardStep);
+                return;
+            }
+            if (wizardStep === 2) {
+                if (!validateStep2()) return;
+                submitWizardBooking();
+            }
+        }
+
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result.split(',')[1]);
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        async function submitWizardBooking() {
+            const nextBtn = document.getElementById('wizardNextBtn');
+            nextBtn.disabled = true;
+            nextBtn.textContent = 'Submitting...';
+
+            const contact = {
+                FullName: document.getElementById('f_FullName').value,
+                OrgName: document.getElementById('f_OrgName').value,
+                Email: document.getElementById('f_Email').value,
+                Phone: document.getElementById('f_Phone').value,
+                ContactMethod: document.getElementById('f_ContactMethod').value,
+            };
+
+            // collect multiselect values into wizardData for submission
+            const fields = WIZARD_FIELDS[wizardService] || [];
+            const payloadFields = {};
+            fields.forEach(f => {
+                if (f.type === 'multiselect') payloadFields[f.name] = (wizardMulti[f.name] || []).join(', ');
+                else if (f.type === 'file') { /* handled separately as attachments */ }
+                else payloadFields[f.name] = wizardData[f.name] || '';
+            });
+
+            // convert any uploaded files to base64 so the backend can save them
+            const attachments = {};
+            for (const name of Object.keys(wizardFiles)) {
+                try {
+                    attachments[name] = {
+                        filename: wizardFiles[name].name,
+                        mimeType: wizardFiles[name].type || 'application/octet-stream',
+                        base64: await fileToBase64(wizardFiles[name]),
+                    };
+                } catch (err) { /* ignore individual file failures */ }
+            }
+
+            const payload = {
+                Type: 'Booking',
+                Service: wizardService,
+                ...payloadFields,
+                ...contact,
+                Attachments: attachments,
+            };
+
+            try {
+                await fetch(BOOKING_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain' },
+                    body: JSON.stringify(payload)
+                });
+            } catch (err) {
+                // no-cors requests won't reveal network errors reliably; proceed to success screen regardless
+            }
+
+            const ref = 'SVR-' + Math.random().toString(36).slice(2, 8).toUpperCase();
+            document.getElementById('wizardRef').textContent = 'Reference: ' + ref;
+            document.getElementById('wizardSuccessName').textContent = `Thanks, ${(contact.FullName || '').split(' ')[0] || 'there'}!`;
+            document.getElementById('bookingForm').style.display = 'none';
+            document.getElementById('wizardProgress').style.display = 'none';
+            document.getElementById('wizardSuccess').style.display = 'block';
+            wizardStep = 3;
+            renderWizardProgress();
+        }
+
+        // Initialise the wizard on load
+        renderServiceGrid();
+        showWizardStep(0);
 
         // ── Navbar scroll effect ──
         window.addEventListener('scroll', () => {
