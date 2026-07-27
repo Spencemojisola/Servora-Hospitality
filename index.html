@@ -1400,6 +1400,46 @@
             font-size: 0.85rem;
         }
 
+        /* ══════════════════════════
+           PAYMENT STEP
+        ══════════════════════════ */
+        .payment-details-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(201, 169, 110, 0.3);
+            border-radius: 8px;
+            padding: 1.4rem 1.6rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .payment-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.55rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.92rem;
+        }
+
+        .payment-row:last-child {
+            border-bottom: none;
+        }
+
+        .payment-row span:first-child {
+            color: #999;
+        }
+
+        .payment-row span:last-child {
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .payment-note {
+            font-size: 0.82rem;
+            color: #999;
+            margin: 0.8rem 0 1.5rem;
+            line-height: 1.6;
+        }
+
         @media (max-width: 480px) {
             .service-select-grid {
                 grid-template-columns: 1fr;
@@ -1956,7 +1996,7 @@
         <h2 class="section-title">Book a <span>Consultation</span></h2>
         <div class="divider"></div>
         <p class="section-subtitle">
-            Tell us about your event or staffing needs and we'll get back to you within 24 hours.
+            Tell us about your needs and we'll get back to you within 24 hours.
         </p>
         <div class="booking-wrapper">
 
@@ -1967,26 +2007,46 @@
 
             <form id="bookingForm" onsubmit="return false;">
 
-                <!-- STEP 1 — Service selection -->
-                <div class="wizard-panel active" data-step="0">
-                    <p class="wizard-panel-eyebrow">Step 1 of 4</p>
+                <!-- STEP — Service selection -->
+                <div class="wizard-panel active" data-stepkey="service">
+                    <p class="wizard-panel-eyebrow" id="stepEyebrowService">Step 1</p>
                     <h3 class="wizard-panel-title">What can we help you book?</h3>
                     <p class="wizard-panel-subtitle">Choose a service — we'll only ask what's relevant to it.</p>
                     <div class="service-select-grid" id="serviceGrid"></div>
                     <div class="wizard-error-banner" id="serviceError">Please select a service to continue.</div>
                 </div>
 
-                <!-- STEP 2 — Dynamic service fields -->
-                <div class="wizard-panel" data-step="1">
-                    <p class="wizard-panel-eyebrow">Step 2 of 4</p>
+                <!-- STEP — Dynamic service fields -->
+                <div class="wizard-panel" data-stepkey="details">
+                    <p class="wizard-panel-eyebrow" id="stepEyebrowDetails">Step 2</p>
                     <h3 class="wizard-panel-title" id="detailsTitle">Tell us more</h3>
                     <p class="wizard-panel-subtitle">Just the details we need for this service — nothing more.</p>
                     <div id="dynamicFields"></div>
                 </div>
 
-                <!-- STEP 3 — Contact details -->
-                <div class="wizard-panel" data-step="2">
-                    <p class="wizard-panel-eyebrow">Step 3 of 4</p>
+                <!-- STEP — Payment (only shown for paid services) -->
+                <div class="wizard-panel" data-stepkey="payment">
+                    <p class="wizard-panel-eyebrow" id="stepEyebrowPayment">Payment</p>
+                    <h3 class="wizard-panel-title">Complete Your Payment</h3>
+                    <p class="wizard-panel-subtitle" id="paymentAmountNote">Please make payment to the account below.</p>
+                    <div class="payment-details-box" id="paymentDetailsBox"></div>
+                    <p class="payment-note">Payments are manually verified by our team once your booking is submitted.
+                        Please keep your payment receipt handy in case we need to confirm it with you.</p>
+                    <div class="wizard-field" data-name="ProofOfPayment">
+                        <label>Upload Proof of Payment *</label>
+                        <div class="file-drop" id="f_ProofOfPayment_drop"
+                            onclick="document.getElementById('f_ProofOfPayment').click()">
+                            ⬆ Click to upload screenshot or receipt (JPG, PNG or PDF)
+                        </div>
+                        <input type="file" id="f_ProofOfPayment" accept=".jpg,.jpeg,.png,.pdf" style="display:none"
+                            onchange="handlePaymentFileChange(this)">
+                        <div class="wizard-field-error">Please upload proof of payment to continue.</div>
+                    </div>
+                </div>
+
+                <!-- STEP — Contact details -->
+                <div class="wizard-panel" data-stepkey="contact">
+                    <p class="wizard-panel-eyebrow" id="stepEyebrowContact">Step</p>
                     <h3 class="wizard-panel-title">Your contact details</h3>
                     <p class="wizard-panel-subtitle">Last step before we send this over to our team.</p>
 
@@ -2034,7 +2094,7 @@
                 </div>
             </form>
 
-            <!-- STEP 4 — Success -->
+            <!-- STEP — Success -->
             <div class="wizard-success" id="wizardSuccess">
                 <span class="check">✅</span>
                 <strong id="wizardSuccessName">Thank you!</strong><br>
@@ -2111,6 +2171,59 @@
         // ── Book Us — dynamic multi-step booking wizard ──
         const BOOKING_URL = "https://script.google.com/macros/s/AKfycbycBSP1gKYSaahXZbYBr2FH0E5iQBypAUuWkDjgnhdZkP407IcHn4esZ-qfEH7FqObrlg/exec";
 
+        // ── Payment configuration ──
+        // EDIT THESE with your real bank details.
+        const PAYMENT_INFO = {
+            bankName: "XYZ Bank",
+            accountName: "Servora Workforce Solutions",
+            accountNumber: "0123456789",
+        };
+
+        // Services that require payment before submission, and their fee.
+        // EDIT the prices below to match what you actually charge.
+        const SERVICE_PRICES = {
+            "CV Review": "₦10,000 – ₦15,000",
+            "Interview Preparation": "₦10,000",
+            "Career Consultation": "₦15,000 – ₦25,000",
+            "LinkedIn Optimization": "₦20,000",
+        };
+        const PAID_SERVICES = new Set(Object.keys(SERVICE_PRICES));
+
+        // Career Consultation is priced by duration rather than a flat fee.
+        const CONSULTATION_PRICES = {
+            "30 minutes": "₦15,000",
+            "1 hour": "₦25,000",
+        };
+
+        // CV Review covers two sub-options with different fees: a review of an
+        // existing CV, or having Servora write one from scratch.
+        const CV_REVIEW_PRICES = {
+            "CV Review": "₦10,000",
+            "CV Writing": "₦15,000",
+        };
+
+        function isPaidService(name) {
+            return PAID_SERVICES.has(name);
+        }
+
+        // Returns the price to charge for a given service. Most services have a flat
+        // fee in SERVICE_PRICES, but Career Consultation's fee depends on the duration
+        // and CV Review's fee depends on the review-vs-writing choice, both picked in
+        // the Details step.
+        function getServicePrice(name) {
+            if (name === 'Career Consultation') {
+                const duration = wizardData['ConsultationDuration'];
+                if (duration && CONSULTATION_PRICES[duration]) return CONSULTATION_PRICES[duration];
+                return 'the applicable fee (based on duration selected)';
+            }
+            if (name === 'CV Review') {
+                const type = wizardData['CVServiceType'];
+                if (type && CV_REVIEW_PRICES[type]) return CV_REVIEW_PRICES[type];
+                return 'the applicable fee (based on service type selected)';
+            }
+            return SERVICE_PRICES[name] || 'the applicable fee';
+        }
+
         // Service catalogue shown in Step 1
         const WIZARD_SERVICES = [
             { key: "Event Staffing", icon: "🎪" },
@@ -2120,6 +2233,7 @@
             { key: "CV Review", icon: "📄" },
             { key: "Interview Preparation", icon: "🗣️" },
             { key: "Career Consultation", icon: "🧭" },
+            { key: "LinkedIn Optimization", icon: "💼" },
             { key: "Corporate Training", icon: "🏆" },
         ];
 
@@ -2154,10 +2268,7 @@
                 { name: "AdditionalNotes", label: "Additional Notes", type: "textarea", required: false },
             ],
             "CV Review": [
-                { name: "CVFile", label: "Upload CV", type: "file", required: true, accept: ".pdf,.doc,.docx", helper: "PDF or DOC/DOCX. Required to continue." },
-                { name: "TargetRole", label: "Target Role or Industry", type: "text", required: true },
-                { name: "HelpAreas", label: "Areas You Need Help With", type: "multiselect", required: true, options: ["Formatting", "ATS Optimisation", "Grammar", "Content", "Career Change", "General Review"] },
-                { name: "Comments", label: "Additional Comments", type: "textarea", required: false },
+                { name: "CVServiceType", label: "Which service do you need?", type: "select", required: true, options: ["CV Review", "CV Writing"], helper: "CV Review — ₦10,000 · CV Writing — ₦15,000" },
             ],
             "Interview Preparation": [
                 { name: "CVFile", label: "Upload CV (Optional but Recommended)", type: "file", required: false, accept: ".pdf,.doc,.docx" },
@@ -2176,9 +2287,17 @@
             "Career Consultation": [
                 { name: "CVFile", label: "Upload CV (Optional)", type: "file", required: false, accept: ".pdf,.doc,.docx" },
                 { name: "CareerLevel", label: "Current Career Level", type: "select", required: true, options: ["Entry-level", "Mid-level", "Senior", "Executive", "Career Changer"] },
+                { name: "ConsultationDuration", label: "Consultation Duration", type: "select", required: true, options: ["30 minutes", "1 hour"], helper: "30 minutes — ₦15,000 · 1 hour — ₦25,000" },
                 { name: "ConsultationReason", label: "Reason for Consultation", type: "textarea", required: true },
                 { name: "ConsultationDate", label: "Preferred Consultation Date", type: "date", required: true },
                 { name: "AdditionalInfo", label: "Additional Information", type: "textarea", required: false },
+            ],
+            "LinkedIn Optimization": [
+                { name: "LinkedInURL", label: "Your LinkedIn Profile URL", type: "text", required: true, placeholder: "https://www.linkedin.com/in/..." },
+                { name: "CVFile", label: "Upload CV (Optional, helps us align your profile)", type: "file", required: false, accept: ".pdf,.doc,.docx" },
+                { name: "TargetRole", label: "Target Role or Industry", type: "text", required: true },
+                { name: "HelpAreas", label: "Areas You Need Help With", type: "multiselect", required: true, options: ["Headline", "About/Summary", "Experience Section", "Skills & Endorsements", "Photo & Banner Guidance", "Full Profile Overhaul"] },
+                { name: "Comments", label: "Additional Comments", type: "textarea", required: false },
             ],
             "Corporate Training": [
                 { name: "CompanyName", label: "Company Name", type: "text", required: true },
@@ -2190,19 +2309,64 @@
             ],
         };
 
-        const STEP_LABELS = ["Service", "Details", "Contact", "Done"];
+        // CV Review's field list depends on which sub-option the user picks in that
+        // service's first field (CVServiceType). "CV Review" needs an existing CV
+        // uploaded; "CV Writing" instead collects the basic info needed to write one
+        // from scratch, and does NOT require a file upload.
+        const CV_REVIEW_SUBFIELDS = {
+            "CV Review": [
+                { name: "CVFile", label: "Upload CV", type: "file", required: true, accept: ".pdf,.doc,.docx", helper: "PDF or DOC/DOCX. Required to continue." },
+                { name: "TargetRole", label: "Target Role or Industry", type: "text", required: true },
+                { name: "HelpAreas", label: "Areas You Need Help With", type: "multiselect", required: true, options: ["Formatting", "ATS Optimisation", "Grammar", "Content", "Career Change", "General Review"] },
+                { name: "Comments", label: "Additional Comments", type: "textarea", required: false },
+            ],
+            "CV Writing": [
+                { name: "TargetRole", label: "Target Role or Industry", type: "text", required: true },
+                { name: "CurrentJobTitle", label: "Current or Most Recent Job Title", type: "text", required: false },
+                { name: "YearsExperience", label: "Years of Experience", type: "number", required: true },
+                { name: "Education", label: "Highest Level of Education", type: "text", required: true, placeholder: "e.g. BSc Economics, University of Ibadan" },
+                { name: "KeySkills", label: "Key Skills", type: "textarea", required: true, placeholder: "List your main skills, separated by commas" },
+                { name: "WorkHistory", label: "Work History", type: "textarea", required: true, placeholder: "List your roles, companies, and dates — even briefly" },
+                { name: "Comments", label: "Additional Comments", type: "textarea", required: false },
+            ],
+        };
+
+        // Returns the field list to render/validate for a given service. Handles the
+        // special case of CV Review, whose fields change depending on the sub-option
+        // chosen in its first field.
+        function getServiceFields(name) {
+            if (name === 'CV Review') {
+                const base = WIZARD_FIELDS['CV Review'];
+                const sub = CV_REVIEW_SUBFIELDS[wizardData['CVServiceType']] || [];
+                return base.concat(sub);
+            }
+            return WIZARD_FIELDS[name] || [];
+        }
+
+        const STEP_LABEL_MAP = { service: "Service", details: "Details", payment: "Payment", contact: "Contact" };
 
         // Wizard state
-        let wizardStep = 0;
+        let wizardStep = 0;         // index into getWizardSteps()
         let wizardService = null;
         let wizardData = {};       // plain field values, keyed by field name
-        let wizardFiles = {};      // File objects, keyed by field name
+        let wizardFiles = {};      // File objects, keyed by field name (also holds ProofOfPayment)
         let wizardMulti = {};      // arrays for multiselect fields, keyed by field name
 
+        // Returns the ordered list of step keys for the currently selected service.
+        // A "payment" step is inserted only when the selected service is a paid one.
+        function getWizardSteps() {
+            const steps = ['service', 'details'];
+            if (wizardService && isPaidService(wizardService)) steps.push('payment');
+            steps.push('contact');
+            return steps;
+        }
+
         function renderWizardProgress() {
+            const steps = getWizardSteps();
+            const labels = steps.map(s => STEP_LABEL_MAP[s]).concat(['Done']);
             const row = document.getElementById('wizardStepsRow');
             row.innerHTML = '';
-            STEP_LABELS.forEach((label, i) => {
+            labels.forEach((label, i) => {
                 const col = document.createElement('div');
                 col.className = 'wizard-step-col';
                 const state = wizardStep > i ? 'done' : (wizardStep === i ? 'active' : '');
@@ -2211,12 +2375,21 @@
                     <div class="wizard-step-label ${wizardStep === i ? 'active' : ''}">${label}</div>
                 `;
                 row.appendChild(col);
-                if (i < STEP_LABELS.length - 1) {
+                if (i < labels.length - 1) {
                     const line = document.createElement('div');
                     line.className = 'wizard-line';
                     line.innerHTML = `<div class="wizard-line-fill" style="width:${wizardStep > i ? '100%' : '0%'}"></div>`;
                     row.appendChild(line);
                 }
+            });
+
+            // Update the "Step X of Y" eyebrows on each panel to match the current flow
+            const total = labels.length; // includes "Done" for display purposes only
+            const realTotal = steps.length;
+            const eyebrowIds = { service: 'stepEyebrowService', details: 'stepEyebrowDetails', payment: 'stepEyebrowPayment', contact: 'stepEyebrowContact' };
+            steps.forEach((key, i) => {
+                const el = document.getElementById(eyebrowIds[key]);
+                if (el) el.textContent = `Step ${i + 1} of ${realTotal}`;
             });
         }
 
@@ -2227,7 +2400,8 @@
                 const btn = document.createElement('button');
                 btn.type = 'button';
                 btn.className = 'service-select-card' + (wizardService === s.key ? ' selected' : '');
-                btn.innerHTML = `<span class="service-select-icon">${s.icon}</span><span class="service-select-label">${s.key}</span>`;
+                const priceTag = isPaidService(s.key) ? ` <span style="opacity:0.6;font-weight:400;">(${SERVICE_PRICES[s.key]})</span>` : '';
+                btn.innerHTML = `<span class="service-select-icon">${s.icon}</span><span class="service-select-label">${s.key}${priceTag}</span>`;
                 btn.onclick = () => {
                     wizardService = s.key;
                     document.getElementById('serviceError').style.display = 'none';
@@ -2272,7 +2446,7 @@
         function renderDynamicFields() {
             document.getElementById('detailsTitle').textContent = wizardService || 'Tell us more';
             const container = document.getElementById('dynamicFields');
-            const fields = WIZARD_FIELDS[wizardService] || [];
+            const fields = getServiceFields(wizardService);
             container.innerHTML = fields.map(f => `
                 <div class="wizard-field" data-name="${f.name}">
                     <label>${f.label}${f.required ? ' *' : ''}</label>
@@ -2287,9 +2461,46 @@
                 if (['text', 'number', 'date', 'time', 'textarea', 'select'].includes(f.type)) {
                     const el = document.getElementById('f_' + f.name);
                     if (el) el.addEventListener('input', () => { wizardData[f.name] = el.value; clearFieldError(f.name); });
-                    if (el) el.addEventListener('change', () => { wizardData[f.name] = el.value; clearFieldError(f.name); });
+                    if (el) el.addEventListener('change', () => {
+                        wizardData[f.name] = el.value;
+                        clearFieldError(f.name);
+                        // Switching between CV Review / CV Writing swaps in a different set
+                        // of fields below it, so re-render the whole details step.
+                        if (f.name === 'CVServiceType') renderDynamicFields();
+                    });
                 }
             });
+        }
+
+        // Populates the payment step with the account details and fee for the selected service,
+        // and reflects any proof-of-payment file already chosen if the user navigated back to it.
+        function renderPaymentPanel() {
+            const price = getServicePrice(wizardService);
+            document.getElementById('paymentAmountNote').textContent =
+                `Please pay ${price} for ${wizardService} to the account below, then upload your proof of payment.`;
+            document.getElementById('paymentDetailsBox').innerHTML = `
+                <div class="payment-row"><span>Bank Name</span><span>${escapeHtml(PAYMENT_INFO.bankName)}</span></div>
+                <div class="payment-row"><span>Account Name</span><span>${escapeHtml(PAYMENT_INFO.accountName)}</span></div>
+                <div class="payment-row"><span>Account Number</span><span>${escapeHtml(PAYMENT_INFO.accountNumber)}</span></div>
+                <div class="payment-row"><span>Amount</span><span>${escapeHtml(price)}</span></div>
+            `;
+            const drop = document.getElementById('f_ProofOfPayment_drop');
+            if (drop) {
+                const file = wizardFiles['ProofOfPayment'];
+                drop.classList.toggle('has-file', !!file);
+                drop.textContent = file ? '📎 ' + file.name : '⬆ Click to upload screenshot or receipt (JPG, PNG or PDF)';
+            }
+        }
+
+        function handlePaymentFileChange(input) {
+            const file = input.files && input.files[0];
+            if (file) {
+                wizardFiles['ProofOfPayment'] = file;
+                clearFieldError('ProofOfPayment');
+            } else {
+                delete wizardFiles['ProofOfPayment'];
+            }
+            renderPaymentPanel();
         }
 
         function toggleChip(name, btn) {
@@ -2332,7 +2543,7 @@
 
         function validateStep1() {
             let valid = true;
-            const fields = WIZARD_FIELDS[wizardService] || [];
+            const fields = getServiceFields(wizardService);
             fields.forEach(f => {
                 if (!f.required) return;
                 const wrap = document.querySelector(`.wizard-field[data-name="${f.name}"]`);
@@ -2344,6 +2555,16 @@
                 else wrap.classList.remove('has-error');
             });
             return valid;
+        }
+
+        function validatePaymentStep() {
+            const wrap = document.querySelector('.wizard-field[data-name="ProofOfPayment"]');
+            if (!wizardFiles['ProofOfPayment']) {
+                wrap.classList.add('has-error');
+                return false;
+            }
+            wrap.classList.remove('has-error');
+            return true;
         }
 
         function validateStep2() {
@@ -2363,12 +2584,15 @@
             return valid;
         }
 
-        function showWizardStep(step) {
+        function showWizardStep(index) {
+            const steps = getWizardSteps();
+            const key = steps[index];
             document.querySelectorAll('.wizard-panel').forEach(p => {
-                p.classList.toggle('active', Number(p.getAttribute('data-step')) === step);
+                p.classList.toggle('active', p.getAttribute('data-stepkey') === key);
             });
-            document.getElementById('wizardBackBtn').style.display = step > 0 ? 'inline-block' : 'none';
-            document.getElementById('wizardNextBtn').textContent = step === 2 ? 'Submit Booking' : 'Continue';
+            if (key === 'payment') renderPaymentPanel();
+            document.getElementById('wizardBackBtn').style.display = index > 0 ? 'inline-block' : 'none';
+            document.getElementById('wizardNextBtn').textContent = key === 'contact' ? 'Submit Booking' : 'Continue';
             renderWizardProgress();
         }
 
@@ -2379,20 +2603,29 @@
         }
 
         function wizardNext() {
-            if (wizardStep === 0) {
+            const steps = getWizardSteps();
+            const key = steps[wizardStep];
+
+            if (key === 'service') {
                 if (!validateStep0()) return;
                 renderDynamicFields();
-                wizardStep = 1;
+                wizardStep += 1;
                 showWizardStep(wizardStep);
                 return;
             }
-            if (wizardStep === 1) {
+            if (key === 'details') {
                 if (!validateStep1()) return;
-                wizardStep = 2;
+                wizardStep += 1;
                 showWizardStep(wizardStep);
                 return;
             }
-            if (wizardStep === 2) {
+            if (key === 'payment') {
+                if (!validatePaymentStep()) return;
+                wizardStep += 1;
+                showWizardStep(wizardStep);
+                return;
+            }
+            if (key === 'contact') {
                 if (!validateStep2()) return;
                 submitWizardBooking();
             }
@@ -2421,7 +2654,7 @@
             };
 
             // collect multiselect values into wizardData for submission
-            const fields = WIZARD_FIELDS[wizardService] || [];
+            const fields = getServiceFields(wizardService);
             const payloadFields = {};
             fields.forEach(f => {
                 if (f.type === 'multiselect') payloadFields[f.name] = (wizardMulti[f.name] || []).join(', ');
@@ -2429,7 +2662,7 @@
                 else payloadFields[f.name] = wizardData[f.name] || '';
             });
 
-            // convert any uploaded files to base64 so the backend can save them
+            // convert any uploaded files (CV, job description, proof of payment, etc.) to base64
             const attachments = {};
             for (const name of Object.keys(wizardFiles)) {
                 try {
@@ -2441,9 +2674,14 @@
                 } catch (err) { /* ignore individual file failures */ }
             }
 
+            const paid = isPaidService(wizardService);
+
             const payload = {
                 Type: 'Booking',
                 Service: wizardService,
+                PaymentRequired: paid ? 'Yes' : 'No',
+                AmountDue: paid ? getServicePrice(wizardService) : '',
+                ProofOfPaymentProvided: paid ? (wizardFiles['ProofOfPayment'] ? 'Yes' : 'No') : 'N/A',
                 ...payloadFields,
                 ...contact,
                 Attachments: attachments,
@@ -2466,7 +2704,7 @@
             document.getElementById('bookingForm').style.display = 'none';
             document.getElementById('wizardProgress').style.display = 'none';
             document.getElementById('wizardSuccess').style.display = 'block';
-            wizardStep = 3;
+            wizardStep = getWizardSteps().length;
             renderWizardProgress();
         }
 
